@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# KorAvto — авто из Кореи в Россию через Кыргызстан
 
-## Getting Started
+Информационно-продающий сайт для российской аудитории: подбор, выкуп и доставка автомобилей из Южной Кореи в Россию через Кыргызстан (ЕАЭС).
 
-First, run the development server:
+Стек: **Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4**. Все страницы статически пререндерятся, никаких внешних сервисов или БД не требуется.
+
+## Запуск
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env.local   # заполните переменные
+npm run dev                  # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Продакшен: `npm run build && npm start`. Проект деплоится на Vercel, Netlify, любой Node-хостинг или в Docker без дополнительной настройки.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Что нужно заменить перед публикацией
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Все бренд-данные собраны в одном файле — `lib/site.ts`:
 
-## Learn More
+| Поле | Что указать |
+| --- | --- |
+| `name`, `legalName`, `tagline` | Название компании |
+| `url` | Домен сайта (или переменная `NEXT_PUBLIC_SITE_URL`) |
+| `contacts.*` | Телефон, WhatsApp, Telegram, email, адрес, часы работы |
+| `social.*` | Ссылки на канал/соцсети |
+| `stats` | Цифры для главной страницы (кол-во авто, сроки, экономия) |
 
-To learn more about Next.js, take a look at the following resources:
+Логотип — `components/Logo.tsx` и `app/icon.svg`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Контент
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Файл | Содержимое |
+| --- | --- |
+| `lib/content/steps.ts` | 6 этапов работы (используются на главной, странице «Как это работает» и в HowTo-разметке) |
+| `lib/content/faq.ts` | Вопросы-ответы (главная, `/faq`, FAQPage-разметка) |
+| `lib/content/cars.ts` | Каталог популярных моделей: цены, двигатели, описания. Каждая модель — отдельная SEO-страница `/avtomobili/[slug]` |
+| `lib/content/articles.ts` | Статьи блога `/blog/[slug]` |
+| `lib/pricing.ts` | **Ставки для калькулятора**: курсы валют, стоимость логистики, комиссия, ставки пошлин ЕАЭС, утильсбор. Обновляйте при изменении правил |
 
-## Deploy on Vercel
+## Заявки
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Форма (`components/LeadForm.tsx`) отправляет данные в `POST /api/lead`. Если заданы `TELEGRAM_BOT_TOKEN` и `TELEGRAM_CHAT_ID`, заявка приходит сообщением в Telegram; иначе — пишется в лог сервера. Есть honeypot-поле и простой rate-limit.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Кнопки WhatsApp/Telegram открывают чат с предзаполненным текстом (в калькуляторе — с параметрами расчёта).
+
+## SEO
+
+- `metadata` на каждой странице: title, description, canonical, Open Graph, Twitter, keywords.
+- Динамические OG-изображения (`opengraph-image.tsx`) для главной, моделей и статей — с кириллическими шрифтами из `assets/`.
+- Структурированные данные JSON-LD: `Organization`, `WebSite`, `Service`, `HowTo`, `FAQPage`, `BreadcrumbList`, `Product` (модели), `Article` (блог).
+- `app/sitemap.ts`, `app/robots.ts`, `app/manifest.ts`.
+- Семантическая разметка, `lang="ru"`, `<h1>` на каждой странице, хлебные крошки.
+- Яндекс.Метрика и верификация Яндекс/Google Webmaster — через переменные окружения.
+
+## Структура
+
+```
+app/                    страницы (App Router)
+  page.tsx              главная
+  kak-eto-rabotaet/     процесс
+  stoimost/             стоимость + калькулятор
+  pochemu-kyrgyzstan/   маршрут и легальность
+  avtomobili/[slug]/    каталог и страницы моделей
+  blog/[slug]/          блог
+  faq/  kontakty/
+  api/lead/             приём заявок
+components/             UI-компоненты
+lib/site.ts             конфигурация бренда и контактов
+lib/content/            весь текстовый контент
+lib/pricing.ts          модель расчёта стоимости
+lib/seo.ts              метаданные и JSON-LD
+assets/                 шрифты для OG-изображений
+```
