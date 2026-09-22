@@ -5,12 +5,14 @@
  */
 
 export const siteConfig = {
-  name: "KorAvto",
-  legalName: "KorAvto — авто из Кореи в Россию через Кыргызстан",
-  tagline: "Автомобили из Кореи в Россию через Кыргызстан",
+  name: "Elite Cars",
+  legalName: "Elite Cars — Export Cars from Korea",
+  tagline: "Премиальные автомобили из Кореи с доставкой в Россию",
+  /** Short English tagline printed under the wordmark (from the official logo) */
+  logoTagline: "Export cars from Korea",
   description:
-    "Подбор, выкуп и доставка автомобилей из Южной Кореи в Россию через Кыргызстан. Прозрачная стоимость, официальное оформление в ЕАЭС, сопровождение на каждом этапе — от аукциона в Сеуле до передачи ключей в вашем городе.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://koravto.ru",
+    "Mercedes-Benz, BMW, Porsche, Land Rover и Genesis с корейского рынка — от 60 000 $. Подбор, проверка, доставка через Кыргызстан и оформление в ЕАЭС под ключ.",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://elitecars-korea.ru",
   locale: "ru_RU",
   language: "ru",
   // Regions used in metadata / structured data
@@ -20,27 +22,31 @@ export const siteConfig = {
 
   contacts: {
     // Displayed number (formatted) and raw for tel: links
-    phoneDisplay: "+7 (900) 000-00-00",
-    phoneRaw: "+79000000000",
-    whatsapp: "79000000000",
-    telegram: "koravto",
-    email: "hello@koravto.ru",
+    phoneDisplay: "+996 220 000 244",
+    phoneRaw: "+996220000244",
+    // Secondary office number (Korea)
+    phoneKoreaDisplay: "+82 10-4463-0686",
+    phoneKoreaRaw: "+821044630686",
+    whatsapp: "996220000244",
+    telegram: "eliteecars",
+    email: "elitecars.co.ltd@gmail.com",
     address: "г. Бишкек, Кыргызстан",
     workingHours: "Ежедневно, 09:00–21:00 (МСК)",
   },
 
   social: {
-    telegramChannel: "https://t.me/koravto",
+    telegramChannel: "https://t.me/elitecarsko",
+    instagram: "https://www.instagram.com/elitecars.co.ltd/",
     youtube: "",
     vk: "",
   },
 
   // Key numbers shown on the landing page. Update as the business grows.
   stats: [
-    { value: "300+", label: "автомобилей доставлено" },
-    { value: "45–60", label: "дней от заказа до передачи" },
-    { value: "15–30%", label: "экономия относительно цен в РФ" },
-    { value: "100%", label: "легальное оформление в ЕАЭС" },
+    { value: "от 60 000 $", label: "стоимость автомобилей" },
+    { value: "45–60", label: "дней до передачи" },
+    { value: "15–25%", label: "ниже цен в России" },
+    { value: "100%", label: "легальное оформление" },
   ],
 
   // Verification tokens for webmaster tools (optional)
@@ -61,12 +67,12 @@ export const links = {
     }`,
   telegram: () => `https://t.me/${siteConfig.contacts.telegram}`,
   phone: () => `tel:${siteConfig.contacts.phoneRaw}`,
+  phoneKorea: () => `tel:${siteConfig.contacts.phoneKoreaRaw}`,
   email: () => `mailto:${siteConfig.contacts.email}`,
 };
 
 export const nav = [
   { href: "/kak-eto-rabotaet", label: "Как это работает", short: "Процесс" },
-  { href: "/stoimost", label: "Стоимость", short: "Стоимость" },
   { href: "/pochemu-kyrgyzstan", label: "Почему через Кыргызстан", short: "Маршрут" },
   { href: "/avtomobili", label: "Автомобили", short: "Автомобили" },
   { href: "/blog", label: "Блог", short: "Блог" },

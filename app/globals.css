@@ -4,16 +4,17 @@
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-manrope), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
-  --color-navy-950: #070b16;
-  --color-navy-900: #0b1220;
-  --color-navy-800: #111a2e;
-  --color-navy-700: #1a2540;
-  --color-navy-600: #26345a;
+  /* Brand: near-black + gold (from the Elite Cars logo) */
+  --color-navy-950: #000000;
+  --color-navy-900: #000000;
+  --color-navy-800: #0f1116;
+  --color-navy-700: #1a1d24;
+  --color-navy-600: #2a2f3b;
 
-  --color-accent-300: #fcd34d;
-  --color-accent-400: #fbbf24;
-  --color-accent-500: #f59e0b;
-  --color-accent-600: #d97706;
+  --color-accent-300: #ead9a6;
+  --color-accent-400: #dcbf78;
+  --color-accent-500: #c9a24a;
+  --color-accent-600: #a8843a;
 
   --color-ink: #0f172a;
   --color-muted: #64748b;
@@ -80,8 +81,8 @@ body {
 
 @utility grid-bg {
   background-image:
-    linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+    linear-gradient(to right, rgb(255 255 255 / 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.04) 1px, transparent 1px);
   background-size: 48px 48px;
 }
 

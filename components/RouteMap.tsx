@@ -12,8 +12,8 @@ export function RouteMap() {
       <svg viewBox="0 0 560 420" className="w-full" role="img" aria-label="Маршрут: Корея — Бишкек — Россия">
         <defs>
           <linearGradient id="route" x1="0" x2="1">
-            <stop offset="0" stopColor="#fbbf24" />
-            <stop offset="1" stopColor="#f59e0b" />
+            <stop offset="0" stopColor="#dcbf78" />
+            <stop offset="1" stopColor="#c9a24a" />
           </linearGradient>
           <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="6" result="b" />
@@ -48,7 +48,7 @@ export function RouteMap() {
         />
 
         {/* moving car dot */}
-        <circle r="6" fill="#fbbf24" filter="url(#glow)">
+        <circle r="6" fill="#dcbf78" filter="url(#glow)">
           <animateMotion dur="7s" repeatCount="indefinite" rotate="auto" path="M470 300 C 420 180, 330 190, 290 220 S 190 180, 100 110" />
         </circle>
 
@@ -102,8 +102,8 @@ function Node({
   const ty = y + (align === "middle" ? 40 : -22);
   return (
     <g>
-      <circle cx={x} cy={y} r="18" fill="rgba(245,158,11,0.15)" />
-      <circle cx={x} cy={y} r="7" fill="#0b1220" stroke="#fbbf24" strokeWidth="3" />
+      <circle cx={x} cy={y} r="18" fill="rgba(201,162,74,0.15)" />
+      <circle cx={x} cy={y} r="7" fill="#000000" stroke="#dcbf78" strokeWidth="3" />
       <text
         x={x + dx}
         y={ty}

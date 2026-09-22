@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { Metadata } from "next";
 import { siteConfig, links } from "@/lib/site";
 import { steps } from "@/lib/content/steps";
@@ -12,43 +11,44 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { RouteMap } from "@/components/RouteMap";
 import { CarCard } from "@/components/CarCard";
 import { Faq } from "@/components/Faq";
-import { Calculator } from "@/components/Calculator";
 import { CtaSection } from "@/components/CtaSection";
 
 export const metadata: Metadata = {
   alternates: { canonical: siteConfig.url },
 };
 
+const brands = ["Mercedes-Benz", "BMW", "Porsche", "Land Rover", "Audi", "Genesis"];
+
 const koreaBenefits = [
   {
-    icon: Icon.Steering,
-    title: "Левый руль",
-    text: "В Корее правостороннее движение — все автомобили с левым рулём, как в России. Никаких компромиссов, как с японскими авто.",
-  },
-  {
-    icon: Icon.Sparkles,
-    title: "Богатые комплектации",
-    text: "Версии для внутреннего рынка Кореи оснащены лучше экспортных: вентиляция сидений, панорама, проекция, полный пакет ассистентов.",
+    icon: Icon.Globe,
+    title: "Крупный премиальный рынок",
+    text: "Корея — в пятёрке мировых рынков Mercedes-Benz и BMW. Выбор свежих E-Class, GLE, 5 Series и X5 шире, чем в Европе.",
   },
   {
     icon: Icon.Eye,
     title: "Прозрачная история",
-    text: "Единая страховая база Carhistory показывает все ДТП, выплаты и замену деталей. Скрутить пробег или скрыть аварию практически невозможно.",
+    text: "Единая страховая база Carhistory и сервисный архив официального дилера — по каждому автомобилю.",
   },
   {
-    icon: Icon.Snow,
-    title: "Готовы к зиме",
-    text: "Подогрев руля, сидений, лобового стекла и форсунок — стандарт для корейского климата, который очень похож на российский.",
+    icon: Icon.Sparkles,
+    title: "Топовые комплектации",
+    text: "AMG Line, M Sport, Executive, Autobiography. Базовые версии на корейском рынке почти не встречаются.",
+  },
+  {
+    icon: Icon.Steering,
+    title: "Левый руль",
+    text: "Правостороннее движение, как в России. Никаких компромиссов, характерных для японского рынка.",
+  },
+  {
+    icon: Icon.Clock,
+    title: "Малые пробеги",
+    text: "Средний годовой пробег в Корее — 12–15 тыс. км. Премиальные автомобили часто вторые в семье.",
   },
   {
     icon: Icon.Wallet,
-    title: "Реальная экономия",
-    text: "Аналогичный автомобиль в России обычно дороже на 15–30%. Особенно заметна разница по кроссоверам, минивэнам и Genesis.",
-  },
-  {
-    icon: Icon.Handshake,
-    title: "Сервис в России",
-    text: "Hyundai, Kia и Genesis — одни из самых распространённых марок в РФ. Запчасти доступны, сервисов много, ликвидность высокая.",
+    title: "Цена ниже российской",
+    text: "Для автомобилей 3–5 лет пошлина ЕАЭС считается от объёма двигателя, а не от стоимости. Итог — на 15–25% ниже рынка РФ.",
   },
 ];
 
@@ -56,22 +56,22 @@ const trust = [
   {
     icon: Icon.Document,
     title: "Договор и фиксированная комиссия",
-    text: "Комиссия прописана в договоре и не зависит от цены автомобиля. Никаких «внезапных» доплат на финише.",
+    text: "Комиссия не зависит от цены автомобиля и прописана в договоре.",
   },
   {
     icon: Icon.Camera,
-    title: "Фото- и видеоотчёты на каждом этапе",
-    text: "Осмотр, погрузка, прибытие в Бишкек, оформление, отправка в Россию — вы видите свою машину каждую неделю.",
+    title: "Отчёты на каждом этапе",
+    text: "Осмотр, погрузка, прибытие, оформление, отправка — вы видите автомобиль каждую неделю.",
   },
   {
     icon: Icon.Shield,
     title: "Только легальное оформление",
-    text: "Реальная стоимость в декларации, ЭПТС, утильсбор — автомобиль встаёт на учёт в любом регионе РФ без вопросов.",
+    text: "Платежи ЕАЭС, ЭПТС, утильсбор. Регистрация в любом регионе России.",
   },
   {
-    icon: Icon.Globe,
-    title: "Свои люди в Корее и Бишкеке",
-    text: "Не посредники, а собственные специалисты: осмотр вживую, контроль погрузки и оформления на месте.",
+    icon: Icon.Handshake,
+    title: "Своя команда в Корее и Бишкеке",
+    text: "Не посредники: личный осмотр, контроль погрузки и оформления на месте.",
   },
 ];
 
@@ -83,50 +83,48 @@ export default function HomePage() {
       {/* HERO */}
       <section className="relative overflow-hidden bg-navy-900 text-white">
         <div className="grid-bg absolute inset-0 opacity-60" aria-hidden />
-        <div className="absolute -top-40 right-[-15%] size-[640px] rounded-full bg-accent-500/20 blur-[140px]" aria-hidden />
-        <div className="absolute -bottom-64 left-[-10%] size-[520px] rounded-full bg-sky-500/10 blur-[140px]" aria-hidden />
+        <div className="absolute -top-40 right-[-15%] size-[640px] rounded-full bg-accent-500/15 blur-[140px]" aria-hidden />
 
         <div className="container-x relative grid items-center gap-12 pt-14 pb-20 lg:grid-cols-[1.05fr_1fr] lg:pt-20 lg:pb-28">
           <div className="animate-fade-up">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-xs font-semibold text-white/80">
-              <span className="size-1.5 rounded-full bg-emerald-400" />
-              Легальный ввоз через ЕАЭС · ЭПТС · договор
+              <span className="size-1.5 rounded-full bg-accent-400" />
+              Автомобили от 60 000 $ · Оформление в ЕАЭС
             </span>
-            <h1 className="font-display mt-6 text-balance text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-[3.6rem]">
-              Автомобили из Кореи в Россию{" "}
+            <h1 className="font-display mt-6 text-balance text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-[3.4rem]">
+              Премиальные автомобили из Кореи{" "}
               <span className="bg-gradient-to-r from-accent-300 to-accent-500 bg-clip-text text-transparent">
-                через Кыргызстан
-              </span>{" "}
-              под ключ
+                с доставкой в Россию
+              </span>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/70 sm:text-xl">
-              Подбираем, проверяем и выкупаем автомобиль в Корее, доставляем в Бишкек, оформляем по ставкам ЕАЭС и
-              передаём вам в России. Одна фиксированная комиссия, полный контроль на каждом этапе.
+              Mercedes-Benz, BMW, Porsche, Land Rover и Genesis с корейского рынка: небольшие пробеги, дилерская
+              история, цена ниже российской. Подбор, проверка, доставка через Кыргызстан и оформление — под ключ.
             </p>
 
             <div className="mt-9 flex flex-wrap gap-3">
               <ButtonLink href="#zayavka" size="lg">
-                Рассчитать стоимость
+                Получить расчёт
                 <Icon.ArrowRight className="size-5" />
               </ButtonLink>
               <ButtonAnchor
-                href={links.whatsapp("Здравствуйте! Хочу подобрать авто из Кореи.")}
+                href={links.whatsapp("Здравствуйте! Интересует подбор автомобиля из Кореи.")}
                 target="_blank"
                 rel="noopener noreferrer"
                 variant="outline-light"
                 size="lg"
               >
                 <Icon.WhatsApp className="size-5" />
-                Написать в WhatsApp
+                WhatsApp
               </ButtonAnchor>
             </div>
 
             <ul className="mt-10 grid gap-3 text-[15px] text-white/80 sm:grid-cols-2">
               {[
-                "Левый руль и богатые комплектации",
-                "Экономия 15–30% относительно РФ",
-                "45–60 дней от заказа до ключей",
-                "Видеоотчёты на каждом этапе",
+                "Только автомобили с проверенной историей",
+                "На 15–25% ниже цен в России",
+                "45–60 дней до передачи",
+                "Личный менеджер и видеоотчёты",
               ].map((t) => (
                 <li key={t} className="flex items-center gap-2.5">
                   <span className="flex size-5 items-center justify-center rounded-full bg-accent-500/20 text-accent-400">
@@ -143,9 +141,14 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* stats */}
+        {/* brands + stats */}
         <div className="relative border-t border-white/10">
-          <div className="container-x grid grid-cols-2 divide-white/10 py-8 lg:grid-cols-4 lg:divide-x">
+          <div className="container-x flex flex-wrap items-center justify-center gap-x-10 gap-y-3 py-6 text-sm font-semibold tracking-[0.14em] text-white/45 uppercase">
+            {brands.map((b) => (
+              <span key={b}>{b}</span>
+            ))}
+          </div>
+          <div className="container-x grid grid-cols-2 divide-white/10 border-t border-white/10 py-8 lg:grid-cols-4 lg:divide-x">
             {siteConfig.stats.map((s) => (
               <div key={s.label} className="px-2 py-3 text-center lg:px-6">
                 <p className="font-display text-3xl font-extrabold tracking-tight text-white sm:text-4xl">{s.value}</p>
@@ -161,8 +164,8 @@ export default function HomePage() {
         <div className="container-x">
           <SectionHeading
             eyebrow="Почему Корея"
-            title="Лучший рынок подержанных авто для российского водителя"
-            description="Южная Корея — единственная страна Азии с левым рулём, где массово продаются свежие Hyundai, Kia и Genesis с прозрачной историей и полным «зимним» пакетом."
+            title="Европейский премиум с корейского рынка"
+            description="Один из крупнейших рынков немецких марок в мире — с левым рулём, малыми пробегами и полной историей обслуживания."
           />
           <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {koreaBenefits.map(({ icon: I, title, text }) => (
@@ -181,21 +184,43 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* WHY KYRGYZSTAN */}
+      {/* CARS */}
       <section className="bg-surface py-20 sm:py-28">
+        <div className="container-x">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <SectionHeading
+              eyebrow="Автомобили"
+              title="Что мы привозим чаще всего"
+              description="Ориентировочные цены под ключ в России. Точный расчёт — по конкретному автомобилю."
+            />
+            <ButtonLink href="/avtomobili" variant="ghost" className="shrink-0 border border-line bg-white">
+              Все модели
+              <Icon.ArrowRight className="size-4" />
+            </ButtonLink>
+          </div>
+          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {cars.slice(0, 6).map((c) => (
+              <CarCard key={c.slug} car={c} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* WHY KYRGYZSTAN */}
+      <section className="py-20 sm:py-28">
         <div className="container-x grid items-center gap-12 lg:grid-cols-2">
           <div>
             <SectionHeading
               eyebrow="Маршрут"
-              title="Почему автомобили едут через Кыргызстан"
-              description="Кыргызстан — участник Евразийского экономического союза. Автомобиль, оформленный в Бишкеке, получает ЭПТС и законно ставится на учёт в России."
+              title="Через Кыргызстан — законно и предсказуемо"
+              description="Кыргызстан входит в ЕАЭС. Автомобиль, оформленный в Бишкеке, получает ЭПТС и регистрируется в России в обычном порядке."
             />
             <ul className="mt-8 space-y-4">
               {[
-                ["Единые ставки ЕАЭС", "Таможенные платежи рассчитываются по единому тарифу союза для физических лиц."],
-                ["Отлаженная логистика", "Через Бишкек ежемесячно проходят тысячи корейских авто — сроки и цены предсказуемы."],
-                ["ЭПТС признаётся в РФ", "Электронный паспорт действует во всех странах союза, постановка на учёт в ГИБДД — стандартная."],
-                ["Русскоязычная среда", "Все документы, общение и контроль — на русском языке, без переводчиков и потерь смысла."],
+                ["Единые ставки ЕАЭС", "Платежи рассчитываются по единому тарифу союза."],
+                ["Отлаженная логистика", "Регулярный поток автомобилей из Кореи — предсказуемые сроки."],
+                ["ЭПТС признаётся в РФ", "Стандартная постановка на учёт в ГИБДД."],
+                ["Своя команда в Бишкеке", "Личная приёмка каждого автомобиля после перевозки."],
               ].map(([t, d]) => (
                 <li key={t} className="flex gap-4">
                   <span className="mt-1 flex size-7 shrink-0 items-center justify-center rounded-full bg-accent-500 text-navy-900">
@@ -216,10 +241,10 @@ export default function HomePage() {
 
           <div className="grid gap-4 sm:grid-cols-2">
             {[
-              { icon: Icon.Ship, step: "Корея", title: "Инчхон / Пусан", text: "Выкуп, снятие с учёта, экспортные документы, погрузка." },
-              { icon: Icon.Truck, step: "Транзит", title: "Китай → Бишкек", text: "Контейнер до порта КНР, далее автовоз или ж/д в Кыргызстан." },
-              { icon: Icon.Document, step: "ЕАЭС", title: "Оформление", text: "Таможня по единым ставкам, брокер, ЭПТС, проверка документов." },
-              { icon: Icon.Handshake, step: "Россия", title: "Передача", text: "Автовоз или перегон, утильсбор, полный пакет для ГИБДД." },
+              { icon: Icon.Ship, step: "Корея", title: "Инчхон / Пусан", text: "Выкуп, снятие с учёта, экспортные документы." },
+              { icon: Icon.Truck, step: "Транзит", title: "Китай → Бишкек", text: "Контейнер до порта КНР, далее автовоз в Кыргызстан." },
+              { icon: Icon.Document, step: "ЕАЭС", title: "Оформление", text: "Таможня по единым ставкам, ЭПТС." },
+              { icon: Icon.Handshake, step: "Россия", title: "Передача", text: "Закрытый автовоз, утильсбор, документы для ГИБДД." },
             ].map(({ icon: I, step, title, text }, i) => (
               <div
                 key={title}
@@ -240,16 +265,16 @@ export default function HomePage() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="py-20 sm:py-28">
+      <section className="bg-surface py-20 sm:py-28">
         <div className="container-x">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <SectionHeading
               eyebrow="Как это работает"
-              title="Шесть этапов — и ключи у вас в руках"
-              description="Мы ведём автомобиль от аукциона в Корее до вашего двора. Вы участвуете только в приятной части — выборе."
+              title="Шесть этапов до передачи ключей"
+              description="Мы ведём автомобиль от дилера в Корее до вашего города. Вы участвуете только в выборе."
             />
-            <ButtonLink href="/kak-eto-rabotaet" variant="ghost" className="shrink-0 border border-line">
-              Подробное описание этапов
+            <ButtonLink href="/kak-eto-rabotaet" variant="ghost" className="shrink-0 border border-line bg-white">
+              Подробнее
               <Icon.ArrowRight className="size-4" />
             </ButtonLink>
           </div>
@@ -272,57 +297,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CARS */}
-      <section className="bg-surface py-20 sm:py-28">
-        <div className="container-x">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <SectionHeading
-              eyebrow="Популярные модели"
-              title="Что чаще всего заказывают из Кореи"
-              description="Ориентировочные цены «под ключ» в России. Точный расчёт — после подбора конкретного автомобиля."
-            />
-            <ButtonLink href="/avtomobili" variant="ghost" className="shrink-0 border border-line bg-white">
-              Все модели
-              <Icon.ArrowRight className="size-4" />
-            </ButtonLink>
-          </div>
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {cars.slice(0, 6).map((c) => (
-              <CarCard key={c.slug} car={c} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CALCULATOR */}
-      <section id="kalkulyator" className="py-20 sm:py-28">
-        <div className="container-x">
-          <SectionHeading
-            eyebrow="Калькулятор"
-            title="Сколько стоит авто из Кореи под ключ"
-            description="Двигайте ползунок и выбирайте параметры — увидите ориентировочную стоимость с разбивкой по каждой статье."
-            align="center"
-          />
-          <div className="mt-14">
-            <Calculator />
-          </div>
-          <p className="mt-6 text-center text-sm text-muted">
-            Хотите понять, из чего складывается цена?{" "}
-            <Link href="/stoimost" className="font-semibold text-navy-900 underline decoration-accent-500 decoration-2 underline-offset-4">
-              Подробно о стоимости
-            </Link>
-          </p>
-        </div>
-      </section>
-
       {/* TRUST */}
       <section className="relative overflow-hidden bg-navy-900 py-20 text-white sm:py-28">
         <div className="grid-bg absolute inset-0 opacity-60" aria-hidden />
         <div className="container-x relative">
           <SectionHeading
             eyebrow="Гарантии"
-            title="Почему нам доверяют покупку за 8 000 километров"
-            description="Мы построили процесс так, чтобы клиент видел всё и ни за что не переживал."
+            title="Покупка за 8 000 километров — под полным контролем"
             tone="dark"
           />
           <div className="mt-14 grid gap-5 md:grid-cols-2">
@@ -348,10 +329,10 @@ export default function HomePage() {
             <SectionHeading
               eyebrow="FAQ"
               title="Частые вопросы"
-              description="Собрали то, о чём спрашивают чаще всего. Не нашли ответ — напишите нам, ответим за несколько минут."
+              description="Не нашли ответ — напишите, ответим лично."
             />
             <ButtonLink href="/faq" variant="secondary" className="mt-8">
-              Все вопросы и ответы
+              Все вопросы
               <Icon.ArrowRight className="size-4" />
             </ButtonLink>
           </div>

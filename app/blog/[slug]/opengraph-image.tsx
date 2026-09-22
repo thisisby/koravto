@@ -9,7 +9,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   const { slug } = await params;
   const a = getArticle(slug);
   return renderOgImage({
-    title: a?.title ?? "Блог о покупке авто из Кореи",
+    title: a?.title ?? "Блог о покупке автомобилей в Корее",
     subtitle: a?.description,
     eyebrow: "Блог · Авто из Кореи",
   });

@@ -3,8 +3,8 @@ import { Icon } from "@/components/ui/Icons";
 import { links, siteConfig } from "@/lib/site";
 
 export function CtaSection({
-  title = "Получите расчёт стоимости вашего автомобиля",
-  description = "Расскажите, какую машину хотите — пришлём 3–5 реальных вариантов из Кореи с полным расчётом «под ключ» в течение суток.",
+  title = "Получите расчёт по вашему автомобилю",
+  description = "Опишите модель, год и бюджет — пришлём 3–5 вариантов с корейского рынка с отчётами и расчётом под ключ в течение суток.",
   defaultCar,
 }: {
   title?: string;
@@ -20,7 +20,7 @@ export function CtaSection({
       />
       <div className="container-x relative grid items-center gap-12 lg:grid-cols-2">
         <div>
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent-400">Бесплатный подбор</p>
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent-400">Подбор без обязательств</p>
           <h2 className="font-display text-balance text-3xl font-bold leading-[1.1] tracking-tight sm:text-4xl lg:text-[2.75rem]">
             {title}
           </h2>
@@ -28,9 +28,9 @@ export function CtaSection({
 
           <ul className="mt-8 space-y-3 text-[15px] text-white/85">
             {[
-              "Реальные варианты с отчётами Carhistory",
+              "Варианты с отчётами Carhistory и дилерской историей",
               "Расчёт по каждой статье — без скрытых платежей",
-              "Ответ в течение 24 часов, чаще — за пару часов",
+              "Ответ в течение суток",
             ].map((t) => (
               <li key={t} className="flex items-center gap-3">
                 <span className="flex size-6 items-center justify-center rounded-full bg-accent-500 text-navy-900">
@@ -43,7 +43,7 @@ export function CtaSection({
 
           <div className="mt-10 flex flex-wrap gap-3">
             <a
-              href={links.whatsapp("Здравствуйте! Хочу подобрать авто из Кореи.")}
+              href={links.whatsapp("Здравствуйте! Интересует подбор автомобиля из Кореи.")}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-3 text-sm font-semibold transition hover:bg-white/10"

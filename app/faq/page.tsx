@@ -21,7 +21,7 @@ export default function FaqPage() {
       <PageHero
         eyebrow="FAQ"
         title="Вопросы и ответы"
-        description="Всё, что обычно спрашивают перед первым заказом. Если вашего вопроса здесь нет — напишите, ответим лично."
+        description="Что спрашивают перед первым заказом. Не нашли ответ — напишите, ответим лично."
         crumbs={[{ name: "FAQ", path: "/faq" }]}
       />
       <section className="py-20 sm:py-24">
@@ -29,7 +29,7 @@ export default function FaqPage() {
           <Faq items={faq} />
         </div>
       </section>
-      <CtaSection title="Не нашли ответ?" description="Задайте вопрос менеджеру напрямую — ответим в течение часа в рабочее время." />
+      <CtaSection title="Не нашли ответ?" description="Задайте вопрос менеджеру — ответим в рабочее время." />
     </>
   );
 }

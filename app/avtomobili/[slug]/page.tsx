@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cars, formatRange, formatUsd, getCar } from "@/lib/content/cars";
 import { buildMetadata, productJsonLd } from "@/lib/seo";
@@ -20,15 +19,15 @@ export async function generateMetadata({ params }: PageProps<"/avtomobili/[slug]
   if (!car) return {};
   return buildMetadata({
     title: `${car.brand} ${car.model} из Кореи: цена под ключ в России ${car.years}`,
-    description: `${car.brand} ${car.model} ${car.years} из Южной Кореи с доставкой в Россию через Кыргызстан. Цена под ключ от ${formatUsd(
+    description: `${car.brand} ${car.model} ${car.years} с корейского рынка с доставкой в Россию через Кыргызстан. Под ключ от ${formatUsd(
       car.priceTurnkey[0],
-    )}. Комплектации, двигатели, почему выгодно везти именно эту модель.`,
+    )}. Двигатели, комплектации, почему выгодно везти из Кореи.`,
     path: `/avtomobili/${car.slug}`,
     keywords: [
       `${car.brand} ${car.model} из Кореи`,
       `${car.brand} ${car.model} из Кореи цена`,
       `купить ${car.brand} ${car.model} из Кореи`,
-      `${car.model} корейская сборка`,
+      `${car.model} с пробегом из Кореи`,
     ],
   });
 }
@@ -113,11 +112,7 @@ export default async function CarPage({ params }: PageProps<"/avtomobili/[slug]"
 
             <div className="mt-10 rounded-2xl bg-surface p-6 text-sm leading-relaxed text-muted">
               Цены ориентировочные и зависят от года, пробега, комплектации и курса валют на момент покупки. Точный
-              расчёт «под ключ» по конкретному автомобилю мы присылаем вместе с подборкой. Как формируется цена —{" "}
-              <Link href="/stoimost" className="font-semibold text-navy-900 underline decoration-accent-500 decoration-2 underline-offset-4">
-                на странице «Стоимость»
-              </Link>
-              .
+              расчёт «под ключ» по конкретному автомобилю мы присылаем вместе с подборкой.
             </div>
           </div>
 
@@ -163,7 +158,7 @@ export default async function CarPage({ params }: PageProps<"/avtomobili/[slug]"
 
       <CtaSection
         title={`Подобрать ${car.brand} ${car.model} из Кореи`}
-        description="Укажите желаемый год, бюджет и комплектацию — пришлём реальные варианты с отчётами и точным расчётом."
+        description="Год, бюджет, конфигурация — пришлём варианты с отчётами и точным расчётом."
         defaultCar={`${car.brand} ${car.model} ${car.years}`}
       />
     </>

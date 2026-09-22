@@ -22,23 +22,24 @@ const manrope = Manrope({
   weight: ["600", "700", "800"],
 });
 
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `Авто из Кореи в Россию через Кыргызстан под ключ — ${siteConfig.name}`,
+    default: `Премиальные авто из Кореи в Россию под ключ — ${siteConfig.name}`,
     template: `%s — ${siteConfig.name}`,
   },
   description: siteConfig.description,
   applicationName: siteConfig.name,
   keywords: [
-    "авто из Кореи",
-    "автомобили из Кореи в Россию",
+    "премиум авто из Кореи",
+    "Mercedes из Кореи",
+    "BMW из Кореи",
+    "Porsche из Кореи",
+    "европейские авто из Кореи",
     "авто из Кореи через Кыргызстан",
     "купить авто из Кореи под ключ",
-    "доставка авто из Кореи",
     "растаможка авто из Кореи",
-    "Kia из Кореи",
-    "Hyundai из Кореи",
     "Genesis из Кореи",
     "авто из Бишкека в Россию",
   ],
@@ -53,12 +54,12 @@ export const metadata: Metadata = {
     locale: siteConfig.locale,
     url: siteConfig.url,
     siteName: siteConfig.name,
-    title: `Авто из Кореи в Россию через Кыргызстан под ключ — ${siteConfig.name}`,
+    title: `Премиальные авто из Кореи в Россию под ключ — ${siteConfig.name}`,
     description: siteConfig.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: `Авто из Кореи в Россию через Кыргызстан — ${siteConfig.name}`,
+    title: `Премиальные авто из Кореи в Россию — ${siteConfig.name}`,
     description: siteConfig.description,
   },
   robots: {
@@ -79,7 +80,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b1220",
+  themeColor: "#000000",
   width: "device-width",
   initialScale: 1,
 };

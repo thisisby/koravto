@@ -1,23 +1,26 @@
 import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { siteConfig } from "@/lib/site";
 
 export const ogSize = { width: 1200, height: 630 };
 export const ogContentType = "image/png";
 
-async function loadFonts() {
-  const [manrope, inter] = await Promise.all([
+async function loadAssets() {
+  const [manrope, inter, logo] = await Promise.all([
     readFile(join(process.cwd(), "assets/Manrope-ExtraBold.ttf")),
     readFile(join(process.cwd(), "assets/Inter-Medium.ttf")),
+    readFile(join(process.cwd(), "public/logo-wide.png")),
   ]);
-  return [
-    { name: "Manrope", data: manrope, weight: 800 as const, style: "normal" as const },
-    { name: "Inter", data: inter, weight: 500 as const, style: "normal" as const },
-  ];
+  return {
+    fonts: [
+      { name: "Manrope", data: manrope, weight: 800 as const, style: "normal" as const },
+      { name: "Inter", data: inter, weight: 500 as const, style: "normal" as const },
+    ],
+    logoSrc: `data:image/png;base64,${logo.toString("base64")}`,
+  };
 }
 
-/** Shared branded OG image. */
+/** Shared branded OG image with the official logo. */
 export async function renderOgImage({
   title,
   subtitle,
@@ -27,7 +30,7 @@ export async function renderOgImage({
   subtitle?: string;
   eyebrow?: string;
 }) {
-  const fonts = await loadFonts();
+  const { fonts, logoSrc } = await loadAssets();
   return new ImageResponse(
     (
       <div
@@ -38,7 +41,7 @@ export async function renderOgImage({
           flexDirection: "column",
           justifyContent: "space-between",
           padding: 64,
-          background: "linear-gradient(135deg, #070b16 0%, #0b1220 55%, #1a2540 100%)",
+          background: "linear-gradient(135deg, #000000 0%, #000000 55%, #1c2029 100%)",
           color: "#fff",
           fontFamily: "Inter",
           position: "relative",
@@ -52,23 +55,15 @@ export async function renderOgImage({
             width: 520,
             height: 520,
             borderRadius: 9999,
-            background: "rgba(245,158,11,0.22)",
+            background: "rgba(201,162,74,0.2)",
             filter: "blur(80px)",
           }}
         />
 
-        <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-          <svg width="56" height="56" viewBox="0 0 40 40">
-            <rect width="40" height="40" rx="11" fill="#111a2e" />
-            <path d="M9 26.5c3-9 6-13 11-13s8 4 11 13" fill="none" stroke="#f59e0b" strokeWidth="3.2" strokeLinecap="round" />
-            <circle cx="9" cy="26.5" r="2.4" fill="#fff" />
-            <circle cx="20" cy="13.5" r="2.4" fill="#fff" />
-            <circle cx="31" cy="26.5" r="2.4" fill="#fff" />
-          </svg>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <span style={{ fontFamily: "Manrope", fontSize: 30, fontWeight: 800 }}>{siteConfig.name}</span>
-            <span style={{ fontSize: 18, color: "rgba(255,255,255,0.6)" }}>{eyebrow}</span>
-          </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={logoSrc} width={278} height={110} alt="" style={{ borderRadius: 12 }} />
+          <span style={{ fontSize: 18, color: "rgba(255,255,255,0.55)" }}>{eyebrow}</span>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 20, maxWidth: 1000 }}>

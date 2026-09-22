@@ -6,8 +6,8 @@ import { LeadForm } from "@/components/LeadForm";
 import { Icon } from "@/components/ui/Icons";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Контакты: заказать авто из Кореи с доставкой в Россию",
-  description: `Свяжитесь с ${siteConfig.name}: телефон, WhatsApp, Telegram, email. Бесплатный подбор автомобиля из Кореи и расчёт стоимости под ключ в течение суток.`,
+  title: "Контакты: заказать премиальный автомобиль из Кореи",
+  description: `${siteConfig.name}: телефон, WhatsApp, Telegram, email. Подбор автомобиля из Кореи и расчёт стоимости под ключ в течение суток.`,
   path: "/kontakty",
 });
 
@@ -16,7 +16,7 @@ const channels = [
     icon: Icon.WhatsApp,
     title: "WhatsApp",
     value: siteConfig.contacts.phoneDisplay,
-    href: links.whatsapp("Здравствуйте! Хочу подобрать авто из Кореи."),
+    href: links.whatsapp("Здравствуйте! Интересует подбор автомобиля из Кореи."),
     color: "bg-emerald-500",
     hint: "Самый быстрый способ",
   },
@@ -34,7 +34,15 @@ const channels = [
     value: siteConfig.contacts.phoneDisplay,
     href: links.phone(),
     color: "bg-accent-500",
-    hint: siteConfig.contacts.workingHours,
+    hint: `Кыргызстан · ${siteConfig.contacts.workingHours}`,
+  },
+  {
+    icon: Icon.Phone,
+    title: "Телефон в Корее",
+    value: siteConfig.contacts.phoneKoreaDisplay,
+    href: links.phoneKorea(),
+    color: "bg-accent-500",
+    hint: "Офис в Южной Корее",
   },
   {
     icon: Icon.Mail,
@@ -44,6 +52,22 @@ const channels = [
     color: "bg-navy-700",
     hint: "Для договоров и документов",
   },
+  {
+    icon: Icon.Telegram,
+    title: "Telegram-канал",
+    value: "@elitecarsko",
+    href: siteConfig.social.telegramChannel,
+    color: "bg-sky-500",
+    hint: "Каталог доступных автомобилей",
+  },
+  {
+    icon: Icon.Instagram,
+    title: "Instagram",
+    value: "@elitecars.co.ltd",
+    href: siteConfig.social.instagram,
+    color: "bg-pink-500",
+    hint: "Фото и видео автомобилей",
+  },
 ];
 
 export default function ContactsPage() {
@@ -51,8 +75,8 @@ export default function ContactsPage() {
     <>
       <PageHero
         eyebrow="Контакты"
-        title="Свяжитесь с нами удобным способом"
-        description="Ответим на вопросы, подберём варианты и пришлём расчёт «под ключ». Бесплатно и без обязательств."
+        title="Свяжитесь с нами"
+        description="Ответим на вопросы, подберём варианты и пришлём расчёт под ключ."
         crumbs={[{ name: "Контакты", path: "/kontakty" }]}
       />
 

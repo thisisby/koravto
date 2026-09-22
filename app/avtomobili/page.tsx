@@ -6,11 +6,11 @@ import { CarCard } from "@/components/CarCard";
 import { CtaSection } from "@/components/CtaSection";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Популярные автомобили из Кореи: цены под ключ в России",
+  title: "Премиальные автомобили из Кореи: цены под ключ в России",
   description:
-    "Каталог популярных моделей из Южной Кореи — Kia, Hyundai, Genesis — с ориентировочными ценами под ключ в России, комплектациями и особенностями корейских версий.",
+    "Mercedes-Benz, BMW, Porsche, Land Rover, Audi и Genesis с корейского рынка — ориентировочные цены под ключ в России, двигатели и особенности корейских комплектаций.",
   path: "/avtomobili",
-  keywords: ["Kia из Кореи цена", "Hyundai из Кореи", "Genesis из Кореи", "авто из Кореи каталог"],
+  keywords: ["Mercedes из Кореи цена", "BMW из Кореи", "Porsche из Кореи", "премиум авто из Кореи каталог"],
 });
 
 export default function CarsPage() {
@@ -19,15 +19,15 @@ export default function CarsPage() {
     <>
       <PageHero
         eyebrow="Каталог"
-        title="Автомобили, которые чаще всего заказывают из Кореи"
-        description="Мы работаем под заказ — любая модель, год и комплектация. Ниже — самые популярные варианты с ориентировочными ценами «под ключ» в России."
+        title="Автомобили, которые мы привозим чаще всего"
+        description="Работаем под заказ — любая модель, год и конфигурация. Ниже — востребованные варианты с ориентировочными ценами под ключ в России."
         crumbs={[{ name: "Автомобили", path: "/avtomobili" }]}
       >
         <div className="mt-10 flex flex-wrap gap-2">
           {brands.map((b) => (
             <a
               key={b}
-              href={`#${b.toLowerCase()}`}
+              href={`#${b.toLowerCase().replace(/\s+/g, "-")}`}
               className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold transition hover:bg-white/10"
             >
               {b}
@@ -37,7 +37,7 @@ export default function CarsPage() {
       </PageHero>
 
       {brands.map((brand) => (
-        <section key={brand} id={brand.toLowerCase()} className="py-16 first-of-type:pt-20 sm:py-20">
+        <section key={brand} id={brand.toLowerCase().replace(/\s+/g, "-")} className="py-16 first-of-type:pt-20 sm:py-20">
           <div className="container-x">
             <h2 className="font-display text-3xl font-bold tracking-tight text-navy-900">{brand} из Кореи</h2>
             <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -52,8 +52,8 @@ export default function CarsPage() {
       ))}
 
       <CtaSection
-        title="Нет нужной модели в списке?"
-        description="Это лишь самые популярные варианты. Подберём любой автомобиль с корейского рынка — от компактного Avante до Genesis G90."
+        title="Нужна другая модель?"
+        description="Подберём любой автомобиль с корейского рынка — от Mercedes-Benz C-Class до Bentley и Rolls-Royce."
       />
     </>
   );

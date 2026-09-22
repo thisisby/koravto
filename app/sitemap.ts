@@ -9,7 +9,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [
     { url: absoluteUrl("/"), lastModified: now, changeFrequency: "weekly", priority: 1 },
     { url: absoluteUrl("/kak-eto-rabotaet"), lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-    { url: absoluteUrl("/stoimost"), lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: absoluteUrl("/pochemu-kyrgyzstan"), lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: absoluteUrl("/avtomobili"), lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: absoluteUrl("/blog"), lastModified: now, changeFrequency: "weekly", priority: 0.7 },

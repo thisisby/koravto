@@ -57,7 +57,7 @@ export function organizationJsonLd() {
     name: siteConfig.name,
     legalName: siteConfig.legalName,
     url: siteConfig.url,
-    logo: absoluteUrl("/icon.svg"),
+    logo: absoluteUrl("/logo.png"),
     description: siteConfig.description,
     foundingDate: String(siteConfig.foundingYear),
     email: siteConfig.contacts.email,
@@ -73,6 +73,14 @@ export function organizationJsonLd() {
         "@type": "ContactPoint",
         telephone: siteConfig.contacts.phoneRaw,
         contactType: "sales",
+        areaServed: "KG",
+        availableLanguage: ["Russian"],
+      },
+      {
+        "@type": "ContactPoint",
+        telephone: siteConfig.contacts.phoneKoreaRaw,
+        contactType: "sales",
+        areaServed: "KR",
         availableLanguage: ["Russian"],
       },
     ],
@@ -96,7 +104,7 @@ export function serviceJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "Service",
-    name: "Подбор и доставка автомобилей из Южной Кореи в Россию",
+    name: "Подбор и доставка премиальных автомобилей из Южной Кореи в Россию",
     serviceType: "Импорт автомобилей",
     provider: { "@id": absoluteUrl("/#organization") },
     areaServed: { "@type": "Country", name: "Россия" },
@@ -104,7 +112,7 @@ export function serviceJsonLd() {
     offers: {
       "@type": "Offer",
       priceCurrency: "USD",
-      price: "1500",
+      price: "2500",
       description: "Фиксированная комиссия за подбор, выкуп, доставку и оформление",
     },
   };
@@ -126,7 +134,7 @@ export function howToJsonLd(steps: { title: string; short: string }[]) {
   return {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: "Как купить автомобиль из Кореи с доставкой в Россию через Кыргызстан",
+    name: "Как купить премиальный автомобиль из Кореи с доставкой в Россию",
     description:
       "Шесть этапов: подбор, договор, выкуп в Корее, доставка в Бишкек, оформление в ЕАЭС, передача в России.",
     totalTime: "P60D",

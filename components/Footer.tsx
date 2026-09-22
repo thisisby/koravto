@@ -10,12 +10,12 @@ export function Footer() {
     <footer className="bg-navy-950 text-white">
       <div className="container-x grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
         <div>
-          <Link href="/" className="flex items-center gap-2.5">
-            <Logo light />
+          <Link href="/" className="inline-flex items-center">
+            <Logo className="h-20 w-auto" />
           </Link>
           <p className="mt-5 max-w-sm text-[15px] leading-relaxed text-white/60">
-            Подбираем, выкупаем и доставляем автомобили из Южной Кореи в Россию через Кыргызстан.
-            Прозрачная стоимость и легальное оформление в ЕАЭС.
+            Премиальные автомобили с корейского рынка — с доставкой в Россию через Кыргызстан и легальным
+            оформлением в ЕАЭС.
           </p>
           <div className="mt-6 flex gap-3">
             <a
@@ -35,6 +35,15 @@ export function Footer() {
               className="inline-flex size-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-accent-500 hover:text-navy-900"
             >
               <Icon.Telegram className="size-5" />
+            </a>
+            <a
+              href={siteConfig.social.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="inline-flex size-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-accent-500 hover:text-navy-900"
+            >
+              <Icon.Instagram className="size-5" />
             </a>
             <a
               href={links.email()}
@@ -61,7 +70,7 @@ export function Footer() {
 
         <div>
           <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-white/50">
-            Популярные модели
+            Автомобили
           </h3>
           <ul className="mt-4 space-y-2.5">
             {cars.slice(0, 7).map((c) => (
@@ -84,6 +93,12 @@ export function Footer() {
               <Icon.Phone className="mt-0.5 size-5 shrink-0 text-accent-400" />
               <a href={links.phone()} className="hover:text-accent-400">
                 {siteConfig.contacts.phoneDisplay}
+              </a>
+            </li>
+            <li className="flex items-start gap-3">
+              <Icon.Phone className="mt-0.5 size-5 shrink-0 text-accent-400" />
+              <a href={links.phoneKorea()} className="hover:text-accent-400">
+                {siteConfig.contacts.phoneKoreaDisplay}
               </a>
             </li>
             <li className="flex items-start gap-3">
