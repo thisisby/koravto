@@ -14,10 +14,6 @@ export function CtaSection({
   return (
     <section id="zayavka" className="relative overflow-hidden bg-navy-900 py-20 text-white sm:py-28">
       <div className="grid-bg absolute inset-0 opacity-60" aria-hidden />
-      <div
-        className="absolute -bottom-48 -left-24 size-[560px] rounded-full bg-accent-500/20 blur-[140px]"
-        aria-hidden
-      />
       <div className="container-x relative grid items-center gap-12 lg:grid-cols-2">
         <div>
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent-400">Подбор без обязательств</p>

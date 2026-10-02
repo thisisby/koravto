@@ -4,7 +4,6 @@ import "./globals.css";
 import { siteConfig } from "@/lib/site";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { StickyContactBar } from "@/components/StickyContactBar";
 import { JsonLd } from "@/components/JsonLd";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import { YandexMetrika } from "@/components/YandexMetrika";
@@ -91,9 +90,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-full flex-col font-sans">
         <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
         <Header />
-        <main className="flex-1 pb-16 lg:pb-0">{children}</main>
+        <main className="flex-1">{children}</main>
         <Footer />
-        <StickyContactBar />
         <YandexMetrika />
       </body>
     </html>

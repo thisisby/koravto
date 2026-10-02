@@ -189,6 +189,7 @@ export function productJsonLd(c: {
   path: string;
   low: number;
   high: number;
+  image?: string;
 }) {
   return {
     "@context": "https://schema.org",
@@ -197,6 +198,7 @@ export function productJsonLd(c: {
     brand: { "@type": "Brand", name: c.brand },
     description: c.description,
     url: absoluteUrl(c.path),
+    ...(c.image ? { image: absoluteUrl(c.image) } : {}),
     offers: {
       "@type": "AggregateOffer",
       priceCurrency: "USD",

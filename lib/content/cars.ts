@@ -3,7 +3,6 @@ export type Car = {
   brand: string;
   model: string;
   segment: string;
-  years: string;
   /** Approximate purchase price range in Korea, USD */
   priceKorea: [number, number];
   /** Approximate turnkey price in Russia, USD */
@@ -13,8 +12,12 @@ export type Car = {
   highlights: string[];
   description: string;
   whyPopular: string[];
-  /** Tailwind gradient classes for the card artwork */
+  /** Tailwind gradient classes for the card artwork (used when there is no photo) */
   accent: string;
+  /** Photo path under /public, e.g. "/cars/genesis-g90.jpg". Landscape ~16:10 works best. */
+  image?: string;
+  /** Attribution for the photo (required for CC-licensed images); shown as a caption on the car page. */
+  imageCredit?: { author: string; license?: string; source: string };
 };
 
 export const cars: Car[] = [
@@ -23,7 +26,6 @@ export const cars: Car[] = [
     brand: "Mercedes-Benz",
     model: "E-Class",
     segment: "Бизнес-седан",
-    years: "2021–2024",
     priceKorea: [45000, 65000],
     priceTurnkey: [62000, 85000],
     engines: ["E 250 (2.0, 204 л.с.)", "E 300 (2.0, 258 л.с.)", "E 350 4MATIC", "E 450 4MATIC (3.0)"],
@@ -37,13 +39,14 @@ export const cars: Car[] = [
       "Полный сервисный архив у официального дилера",
     ],
     accent: "from-zinc-600/80 to-neutral-800/80",
+    image: "/cars/mercedes-benz-e-class.jpg",
+    imageCredit: { author: "Alexander-93", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:Mercedes-AMG_W214_53_Hybrid_IMG_1292.jpg" },
   },
   {
     slug: "mercedes-benz-s-class",
     brand: "Mercedes-Benz",
     model: "S-Class",
     segment: "Представительский седан",
-    years: "2021–2024",
     priceKorea: [90000, 140000],
     priceTurnkey: [115000, 175000],
     engines: ["S 400d 4MATIC (3.0 дизель)", "S 450 4MATIC (3.0)", "S 500 4MATIC (3.0)", "S 580 4MATIC (4.0)"],
@@ -57,13 +60,14 @@ export const cars: Car[] = [
       "Прозрачная история и обслуживание у официального дилера",
     ],
     accent: "from-slate-700/80 to-slate-900/80",
+    image: "/cars/mercedes-benz-s-class.jpg",
+    imageCredit: { author: "MrWalkr", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:W223_Front.jpg" },
   },
   {
     slug: "mercedes-benz-gle",
     brand: "Mercedes-Benz",
     model: "GLE",
     segment: "Премиальный кроссовер",
-    years: "2021–2024",
     priceKorea: [60000, 85000],
     priceTurnkey: [80000, 110000],
     engines: ["GLE 300d (2.0 дизель)", "GLE 400d 4MATIC (3.0 дизель)", "GLE 450 4MATIC (3.0)", "GLE 53 AMG"],
@@ -77,13 +81,14 @@ export const cars: Car[] = [
       "Хорошая ликвидность на вторичном рынке РФ",
     ],
     accent: "from-stone-600/80 to-stone-800/80",
+    image: "/cars/mercedes-benz-gle.jpg",
+    imageCredit: { author: "Damian B Oh", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:Mercedes-Benz_GLE_450_4MATIC_AMG_Line_W167_Black_(1).jpg" },
   },
   {
     slug: "mercedes-benz-g-class",
     brand: "Mercedes-Benz",
     model: "G-Class",
     segment: "Внедорожник",
-    years: "2020–2024",
     priceKorea: [130000, 190000],
     priceTurnkey: [165000, 240000],
     engines: ["G 400d (3.0 дизель)", "G 500 (4.0)", "G 63 AMG (4.0)"],
@@ -97,13 +102,14 @@ export const cars: Car[] = [
       "Стабильно высокий спрос в России",
     ],
     accent: "from-neutral-700/80 to-black/80",
+    image: "/cars/mercedes-benz-g-class.jpg",
+    imageCredit: { author: "Tokumeigakarinoaoshima", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:Mercedes-AMG_G_63_(W463A)_front.jpg" },
   },
   {
     slug: "bmw-5-series",
     brand: "BMW",
     model: "5 Series",
     segment: "Бизнес-седан",
-    years: "2021–2024",
     priceKorea: [40000, 65000],
     priceTurnkey: [60000, 85000],
     engines: ["520i (2.0)", "530i xDrive (2.0)", "523d (2.0 дизель)", "540i xDrive (3.0)"],
@@ -117,13 +123,14 @@ export const cars: Car[] = [
       "Двухлитровые моторы — выгодная категория по пошлине",
     ],
     accent: "from-sky-800/80 to-slate-900/80",
+    image: "/cars/bmw-5-series.jpg",
+    imageCredit: { author: "Alexander-93", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:BMW_G60_550e_1X7A1829.jpg" },
   },
   {
     slug: "bmw-x5",
     brand: "BMW",
     model: "X5",
     segment: "Премиальный кроссовер",
-    years: "2021–2024",
     priceKorea: [60000, 85000],
     priceTurnkey: [80000, 110000],
     engines: ["xDrive30d (3.0 дизель)", "xDrive40i (3.0)", "M50i / M60i (4.4)"],
@@ -137,13 +144,14 @@ export const cars: Car[] = [
       "Стабильный спрос и высокая ликвидность в РФ",
     ],
     accent: "from-blue-900/80 to-slate-900/80",
+    image: "/cars/bmw-x5.jpg",
+    imageCredit: { author: "Mr.choppers", license: "CC BY-SA 3.0", source: "https://commons.wikimedia.org/wiki/File:2020_BMW_X5_xDrive_40i,_front_left.jpg" },
   },
   {
     slug: "bmw-7-series",
     brand: "BMW",
     model: "7 Series",
     segment: "Представительский седан",
-    years: "2023–2024",
     priceKorea: [110000, 150000],
     priceTurnkey: [140000, 190000],
     engines: ["740i (3.0)", "740d xDrive (3.0 дизель)", "760i xDrive (4.4)", "i7 (электро)"],
@@ -157,13 +165,14 @@ export const cars: Car[] = [
       "Свежие автомобили 1–2 лет с минимальным пробегом",
     ],
     accent: "from-indigo-900/80 to-slate-950/80",
+    image: "/cars/bmw-7-series.jpg",
+    imageCredit: { author: "Tokumeigakarinoaoshima", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:BMW_740d_xDrive_Excellence_(G70)_front.jpg" },
   },
   {
     slug: "porsche-cayenne",
     brand: "Porsche",
     model: "Cayenne",
     segment: "Спортивный кроссовер",
-    years: "2021–2024",
     priceKorea: [75000, 120000],
     priceTurnkey: [100000, 150000],
     engines: ["Cayenne (3.0)", "Cayenne E-Hybrid (3.0)", "Cayenne S (2.9 / 4.0)", "Cayenne Coupé"],
@@ -177,13 +186,14 @@ export const cars: Car[] = [
       "Полная сервисная история у Porsche Centre",
     ],
     accent: "from-red-900/80 to-neutral-900/80",
+    image: "/cars/porsche-cayenne.jpg",
+    imageCredit: { author: "Tokumeigakarinoaoshima", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:Porsche_Cayenne_(PO536)_front.jpg" },
   },
   {
     slug: "porsche-panamera",
     brand: "Porsche",
     model: "Panamera",
     segment: "Спортивный седан",
-    years: "2021–2024",
     priceKorea: [80000, 130000],
     priceTurnkey: [105000, 165000],
     engines: ["Panamera 4 (2.9)", "Panamera 4 E-Hybrid", "Panamera GTS (4.0)", "Sport Turismo"],
@@ -197,13 +207,14 @@ export const cars: Car[] = [
       "Индивидуальные цвета и отделки салона",
     ],
     accent: "from-rose-900/80 to-neutral-900/80",
+    image: "/cars/porsche-panamera.jpg",
+    imageCredit: { author: "Tokumeigakarinoaoshima", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:Porsche_Panamera_GTS_(Type_971)_front.jpg" },
   },
   {
     slug: "range-rover-sport",
     brand: "Land Rover",
     model: "Range Rover Sport",
     segment: "Премиальный внедорожник",
-    years: "2022–2024",
     priceKorea: [85000, 120000],
     priceTurnkey: [110000, 150000],
     engines: ["D300 (3.0 дизель)", "P400 (3.0)", "P530 (4.4 V8)"],
@@ -217,13 +228,14 @@ export const cars: Car[] = [
       "Городская эксплуатация без бездорожья",
     ],
     accent: "from-emerald-900/80 to-neutral-900/80",
+    image: "/cars/range-rover-sport.jpg",
+    imageCredit: { author: "Alexander-93", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:Range_Rover_Sport_Series_III_1X7A7071.jpg" },
   },
   {
     slug: "audi-q8",
     brand: "Audi",
     model: "Q8",
     segment: "Премиальный кроссовер",
-    years: "2021–2024",
     priceKorea: [55000, 80000],
     priceTurnkey: [75000, 105000],
     engines: ["45 TDI quattro (3.0 дизель)", "55 TFSI quattro (3.0)", "SQ8 (4.0)"],
@@ -237,13 +249,14 @@ export const cars: Car[] = [
       "Одна из лучших цен в сегменте больших кроссоверов-купе",
     ],
     accent: "from-gray-700/80 to-gray-900/80",
+    image: "/cars/audi-q8.jpg",
+    imageCredit: { author: "Vauxford", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:2019_Audi_Q8_Front.jpg" },
   },
   {
     slug: "genesis-g90",
     brand: "Genesis",
     model: "G90",
     segment: "Представительский седан",
-    years: "2022–2024",
     priceKorea: [65000, 90000],
     priceTurnkey: [85000, 115000],
     engines: ["3.5 T-GDI (380 л.с.)", "3.5 T-GDI 48V E-Supercharger (415 л.с.)"],
@@ -257,6 +270,8 @@ export const cars: Car[] = [
       "Родной рынок бренда — большой выбор и лучшие цены",
     ],
     accent: "from-amber-900/80 to-neutral-900/80",
+    image: "/cars/genesis-g90.jpg",
+    imageCredit: { author: "Encar", source: "https://www.encar.com" },
   },
 ];
 

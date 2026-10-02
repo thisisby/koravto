@@ -24,11 +24,6 @@ export function RouteMap() {
           </filter>
         </defs>
 
-        {/* faint land masses */}
-        <g fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.08)">
-          <path d="M60 60c60-30 140-40 220-25 60 10 110 40 150 80 40 40 60 100 40 150-20 50-80 80-150 90-70 10-150 0-210-40C50 275 20 200 30 140 35 110 40 75 60 60Z" />
-        </g>
-
         {/* route path */}
         <path
           id="path"
@@ -77,7 +72,7 @@ export function RouteMap() {
           </span>
           <div>
             <p className="text-[11px] text-muted">Срок под ключ</p>
-            <p className="text-sm font-semibold">45–60 дней</p>
+            <p className="text-sm font-semibold">45 дней</p>
           </div>
         </div>
       </div>

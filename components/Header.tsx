@@ -30,7 +30,7 @@ export function Header() {
   return (
     <header
       className={`sticky top-0 z-50 text-white transition-colors duration-300 ${
-        scrolled || open ? "border-b border-white/10 bg-navy-900/90 backdrop-blur-xl" : "bg-navy-900"
+        scrolled || open ? "border-b border-white/10 bg-black backdrop-blur-xl" : "bg-black"
       }`}
     >
       <div className="container-x flex h-16 items-center justify-between gap-6 lg:h-[72px]">
@@ -88,7 +88,10 @@ export function Header() {
       </div>
 
       {open && (
-        <div id="mobile-menu" className="fixed inset-x-0 top-16 bottom-0 z-40 overflow-y-auto bg-navy-900 lg:hidden">
+        <div
+          id="mobile-menu"
+          className="absolute inset-x-0 top-full h-[calc(100dvh-4rem)] overflow-y-auto border-t border-white/10 bg-navy-900 lg:hidden"
+        >
           <nav className="container-x flex flex-col py-4" aria-label="Мобильная навигация">
             {nav.map((item) => (
               <Link
@@ -100,9 +103,9 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
-            <div className="mt-6 flex flex-col gap-3 pb-24">
+            <div className="mt-6 flex flex-col gap-3 pb-10">
               <ButtonAnchor
-                href={links.whatsapp("Здравствуйте! Интересует расчёт стоимости автомобиля из Кореи.")}
+                href={links.whatsapp("Здравствуйте! Интересует автомобиль из Кореи.")}
                 target="_blank"
                 rel="noopener noreferrer"
               >

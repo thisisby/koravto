@@ -83,7 +83,6 @@ export default function HomePage() {
       {/* HERO */}
       <section className="relative overflow-hidden bg-navy-900 text-white">
         <div className="grid-bg absolute inset-0 opacity-60" aria-hidden />
-        <div className="absolute -top-40 right-[-15%] size-[640px] rounded-full bg-accent-500/15 blur-[140px]" aria-hidden />
 
         <div className="container-x relative grid items-center gap-12 pt-14 pb-20 lg:grid-cols-[1.05fr_1fr] lg:pt-20 lg:pb-28">
           <div className="animate-fade-up">
@@ -123,7 +122,7 @@ export default function HomePage() {
               {[
                 "Только автомобили с проверенной историей",
                 "На 15–25% ниже цен в России",
-                "45–60 дней до передачи",
+                "45 дней до передачи",
                 "Личный менеджер и видеоотчёты",
               ].map((t) => (
                 <li key={t} className="flex items-center gap-2.5">

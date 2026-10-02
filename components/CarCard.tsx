@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { formatUsd, type Car } from "@/lib/content/cars";
 import { Icon } from "@/components/ui/Icons";
@@ -8,19 +9,29 @@ export function CarCard({ car }: { car: Car }) {
       href={`/avtomobili/${car.slug}`}
       className="group flex flex-col overflow-hidden rounded-3xl border border-line bg-white shadow-soft transition duration-300 hover:-translate-y-1 hover:shadow-lift"
     >
-      <div className={`relative h-40 bg-gradient-to-br ${car.accent} p-5`}>
-        <div className="grid-bg absolute inset-0 opacity-40" aria-hidden />
+      <div className={`relative aspect-[16/10] overflow-hidden bg-gradient-to-br ${car.accent} p-5`}>
+        {car.image ? (
+          <Image
+            src={car.image}
+            alt={`${car.brand} ${car.model}`}
+            fill
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            className="object-cover transition duration-500 group-hover:scale-[1.03]"
+          />
+        ) : (
+          <div className="grid-bg absolute inset-0 opacity-40" aria-hidden />
+        )}
         <div className="relative flex h-full flex-col justify-between">
           <span className="inline-flex w-fit rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-semibold text-navy-900">
             {car.segment}
           </span>
-          <CarSilhouette className="ml-auto h-16 w-auto text-white/90 transition group-hover:translate-x-1" />
+          {!car.image && <CarSilhouette className="ml-auto h-16 w-auto text-white/90 transition group-hover:translate-x-1" />}
         </div>
       </div>
       <div className="flex flex-1 flex-col p-5">
         <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">{car.brand}</p>
         <h3 className="font-display mt-1 text-xl font-bold text-navy-900">
-          {car.model} <span className="text-base font-medium text-muted">{car.years}</span>
+          {car.model}
         </h3>
         <ul className="mt-3 flex flex-wrap gap-1.5">
           {car.highlights.slice(0, 3).map((h) => (

@@ -44,7 +44,7 @@ export const siteConfig = {
   // Key numbers shown on the landing page. Update as the business grows.
   stats: [
     { value: "от 60 000 $", label: "стоимость автомобилей" },
-    { value: "45–60", label: "дней до передачи" },
+    { value: "45", label: "дней до передачи" },
     { value: "15–25%", label: "ниже цен в России" },
     { value: "100%", label: "легальное оформление" },
   ],

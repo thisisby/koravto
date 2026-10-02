@@ -25,12 +25,18 @@ export async function renderOgImage({
   title,
   subtitle,
   eyebrow = "Корея → Кыргызстан → Россия",
+  photo,
 }: {
   title: string;
   subtitle?: string;
   eyebrow?: string;
+  /** Path under /public to a photo shown on the right side (e.g. "/cars/genesis-g90.jpg") */
+  photo?: string;
 }) {
   const { fonts, logoSrc } = await loadAssets();
+  const photoSrc = photo
+    ? `data:image/jpeg;base64,${(await readFile(join(process.cwd(), "public", photo))).toString("base64")}`
+    : null;
   return new ImageResponse(
     (
       <div
@@ -66,11 +72,29 @@ export async function renderOgImage({
           <span style={{ fontSize: 18, color: "rgba(255,255,255,0.55)" }}>{eyebrow}</span>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 20, maxWidth: 1000 }}>
+        {photoSrc && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={photoSrc}
+            width={480}
+            height={300}
+            alt=""
+            style={{
+              position: "absolute",
+              right: 64,
+              top: 200,
+              borderRadius: 24,
+              objectFit: "cover",
+              border: "1px solid rgba(255,255,255,0.15)",
+            }}
+          />
+        )}
+
+        <div style={{ display: "flex", flexDirection: "column", gap: 20, maxWidth: photoSrc ? 560 : 1000 }}>
           <div
             style={{
               fontFamily: "Manrope",
-              fontSize: title.length > 60 ? 54 : 66,
+              fontSize: photoSrc ? 50 : title.length > 60 ? 54 : 66,
               fontWeight: 800,
               lineHeight: 1.08,
               letterSpacing: -1.5,

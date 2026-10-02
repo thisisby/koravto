@@ -28,7 +28,7 @@ export default function HowItWorksPage() {
       <JsonLd data={howToJsonLd(steps)} />
       <PageHero
         eyebrow="Процесс"
-        title="От запроса до ключей за 45–60 дней"
+        title="От запроса до ключей за 45 дней"
         description="Одна проверенная схема для каждого автомобиля. Вы видите каждый шаг и платите поэтапно."
         crumbs={[{ name: "Как это работает", path: "/kak-eto-rabotaet" }]}
       >

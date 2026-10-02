@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { cars, formatRange, formatUsd, getCar } from "@/lib/content/cars";
 import { buildMetadata, productJsonLd } from "@/lib/seo";
@@ -18,8 +19,8 @@ export async function generateMetadata({ params }: PageProps<"/avtomobili/[slug]
   const car = getCar(slug);
   if (!car) return {};
   return buildMetadata({
-    title: `${car.brand} ${car.model} из Кореи: цена под ключ в России ${car.years}`,
-    description: `${car.brand} ${car.model} ${car.years} с корейского рынка с доставкой в Россию через Кыргызстан. Под ключ от ${formatUsd(
+    title: `${car.brand} ${car.model} из Кореи: цена под ключ в России`,
+    description: `${car.brand} ${car.model} с корейского рынка с доставкой в Россию через Кыргызстан. Под ключ от ${formatUsd(
       car.priceTurnkey[0],
     )}. Двигатели, комплектации, почему выгодно везти из Кореи.`,
     path: `/avtomobili/${car.slug}`,
@@ -51,6 +52,7 @@ export default async function CarPage({ params }: PageProps<"/avtomobili/[slug]"
           path: `/avtomobili/${car.slug}`,
           low: car.priceTurnkey[0],
           high: car.priceTurnkey[1],
+          image: car.image,
         })}
       />
       <PageHero
@@ -62,8 +64,7 @@ export default async function CarPage({ params }: PageProps<"/avtomobili/[slug]"
           { name: `${car.brand} ${car.model}`, path: `/avtomobili/${car.slug}` },
         ]}
       >
-        <div className="mt-10 grid gap-4 sm:grid-cols-3">
-          <Stat label="Годы выпуска" value={car.years} />
+        <div className="mt-10 grid gap-4 sm:grid-cols-2">
           <Stat label="Цена в Корее" value={formatRange(car.priceKorea)} />
           <Stat label="Под ключ в России" value={formatRange(car.priceTurnkey)} highlight />
         </div>
@@ -117,14 +118,38 @@ export default async function CarPage({ params }: PageProps<"/avtomobili/[slug]"
           </div>
 
           <aside className="lg:sticky lg:top-24 lg:self-start">
-            <div className={`relative overflow-hidden rounded-3xl bg-gradient-to-br ${car.accent} p-6 text-white`}>
-              <div className="grid-bg absolute inset-0 opacity-40" aria-hidden />
-              <div className="relative">
-                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-white/80">{car.brand}</p>
-                <p className="font-display text-3xl font-extrabold">{car.model}</p>
-                <CarSilhouette className="mt-6 h-24 w-auto text-white/90" />
+            {car.image ? (
+              <figure>
+                <div className="relative aspect-[16/10] overflow-hidden rounded-3xl border border-line bg-surface shadow-soft">
+                  <Image
+                    src={car.image}
+                    alt={`${car.brand} ${car.model}`}
+                    fill
+                    priority
+                    sizes="(min-width: 1024px) 40vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+                {car.imageCredit && (
+                  <figcaption className="mt-2 text-right text-[11px] text-muted/70">
+                    Фото:{" "}
+                    <a href={car.imageCredit.source} target="_blank" rel="noopener noreferrer nofollow" className="hover:underline">
+                      {car.imageCredit.author}
+                    </a>
+                    {car.imageCredit.license && ` · ${car.imageCredit.license}`}
+                  </figcaption>
+                )}
+              </figure>
+            ) : (
+              <div className={`relative overflow-hidden rounded-3xl bg-gradient-to-br ${car.accent} p-6 text-white`}>
+                <div className="grid-bg absolute inset-0 opacity-40" aria-hidden />
+                <div className="relative">
+                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-white/80">{car.brand}</p>
+                  <p className="font-display text-3xl font-extrabold">{car.model}</p>
+                  <CarSilhouette className="mt-6 h-24 w-auto text-white/90" />
+                </div>
               </div>
-            </div>
+            )}
             <div className="mt-4 rounded-3xl border border-line bg-white p-6 shadow-soft">
               <p className="text-sm text-muted">Под ключ в России</p>
               <p className="font-display mt-1 text-2xl font-extrabold text-navy-900">{formatRange(car.priceTurnkey)}</p>
@@ -159,7 +184,7 @@ export default async function CarPage({ params }: PageProps<"/avtomobili/[slug]"
       <CtaSection
         title={`Подобрать ${car.brand} ${car.model} из Кореи`}
         description="Год, бюджет, конфигурация — пришлём варианты с отчётами и точным расчётом."
-        defaultCar={`${car.brand} ${car.model} ${car.years}`}
+        defaultCar={`${car.brand} ${car.model}`}
       />
     </>
   );
