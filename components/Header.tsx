@@ -41,13 +41,19 @@ export function Header() {
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Основная навигация">
           {nav.map((item) => {
             const active = pathname === item.href || pathname.startsWith(item.href + "/");
+            const highlight = item.highlight;
+            const tone = highlight
+              ? "bg-accent-500 text-navy-900 font-semibold shadow-[0_8px_24px_-8px_rgb(201_162_74/0.6)] hover:bg-accent-400"
+              : active
+                ? "bg-white/10 text-white"
+                : "text-white/70 hover:bg-white/10 hover:text-white";
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`rounded-full px-3 py-2 text-[13.5px] font-medium whitespace-nowrap transition-colors xl:px-3.5 xl:text-[14px] ${
-                  active ? "bg-white/10 text-white" : "text-white/70 hover:bg-white/10 hover:text-white"
-                }`}
+                className={`rounded-full px-3 py-2 text-[13.5px] font-medium whitespace-nowrap transition-all duration-200 xl:px-3.5 xl:text-[14px] ${
+                  highlight ? "mr-1" : ""
+                } ${tone}`}
                 aria-current={active ? "page" : undefined}
                 title={item.label}
               >
@@ -98,7 +104,9 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="border-b border-white/10 py-4 text-lg font-medium text-white"
+                className={`border-b border-white/10 py-4 text-lg font-medium ${
+                  item.highlight ? "text-accent-400" : "text-white"
+                }`}
               >
                 {item.label}
               </Link>

@@ -37,7 +37,7 @@ export const siteConfig = {
   social: {
     telegramChannel: "https://t.me/elitecarsko",
     instagram: "https://www.instagram.com/elitecars.co.ltd/",
-    youtube: "",
+    youtube: "https://www.youtube.com/@elitecarskr",
     vk: "",
   },
 
@@ -45,7 +45,7 @@ export const siteConfig = {
   stats: [
     { value: "от 60 000 $", label: "стоимость автомобилей" },
     { value: "45", label: "дней до передачи" },
-    { value: "15–25%", label: "ниже цен в России" },
+    { value: "30%", label: "ниже цен в России" },
     { value: "100%", label: "легальное оформление" },
   ],
 
@@ -57,6 +57,15 @@ export const siteConfig = {
 
   analytics: {
     yandexMetrikaId: process.env.NEXT_PUBLIC_YM_ID ?? "",
+  },
+
+  /**
+   * Feature flags for sections that are temporarily switched off.
+   * A disabled section is hidden from the nav/footer/sitemap and its routes return 404.
+   */
+  features: {
+    blog: false,
+    faq: false,
   },
 } as const;
 
@@ -71,14 +80,20 @@ export const links = {
   email: () => `mailto:${siteConfig.contacts.email}`,
 };
 
-export const nav = [
-  { href: "/kak-eto-rabotaet", label: "Как это работает", short: "Процесс" },
+type NavItem = { href: string; label: string; short: string; highlight?: boolean; enabled?: boolean };
+
+const allNav: NavItem[] = [
+  { href: "/kak-eto-rabotaet", label: "Как это работает", short: "Как это работает", highlight: true },
   { href: "/pochemu-kyrgyzstan", label: "Почему через Кыргызстан", short: "Маршрут" },
   { href: "/avtomobili", label: "Автомобили", short: "Автомобили" },
-  { href: "/blog", label: "Блог", short: "Блог" },
-  { href: "/faq", label: "FAQ", short: "FAQ" },
+  { href: "/galereya", label: "Галерея", short: "Галерея" },
+  { href: "/blog", label: "Блог", short: "Блог", enabled: siteConfig.features.blog },
+  { href: "/faq", label: "FAQ", short: "FAQ", enabled: siteConfig.features.faq },
   { href: "/kontakty", label: "Контакты", short: "Контакты" },
-] as const;
+];
+
+/** Navigation items shown in the header and footer (disabled sections filtered out). */
+export const nav = allNav.filter((n) => n.enabled !== false);
 
 export function absoluteUrl(path = "/") {
   return new URL(path, siteConfig.url).toString();

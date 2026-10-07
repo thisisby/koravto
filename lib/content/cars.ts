@@ -82,7 +82,7 @@ export const cars: Car[] = [
     ],
     accent: "from-stone-600/80 to-stone-800/80",
     image: "/cars/mercedes-benz-gle.jpg",
-    imageCredit: { author: "Damian B Oh", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:Mercedes-Benz_GLE_450_4MATIC_AMG_Line_W167_Black_(1).jpg" },
+    imageCredit: { author: "Charles from Port Chester, New York", license: "CC0", source: "https://commons.wikimedia.org/wiki/File:Mercedes-Benz_GLE_350_de_4MATIC_(V167,_2024)_(54732467967).jpg" },
   },
   {
     slug: "mercedes-benz-g-class",
@@ -103,7 +103,7 @@ export const cars: Car[] = [
     ],
     accent: "from-neutral-700/80 to-black/80",
     image: "/cars/mercedes-benz-g-class.jpg",
-    imageCredit: { author: "Tokumeigakarinoaoshima", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:Mercedes-AMG_G_63_(W463A)_front.jpg" },
+    imageCredit: { author: "Alexander Migl", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:Mercedes-Benz_G_580_with_EQ_Technology_DSC_8256.jpg" },
   },
   {
     slug: "bmw-5-series",
@@ -145,7 +145,7 @@ export const cars: Car[] = [
     ],
     accent: "from-blue-900/80 to-slate-900/80",
     image: "/cars/bmw-x5.jpg",
-    imageCredit: { author: "Mr.choppers", license: "CC BY-SA 3.0", source: "https://commons.wikimedia.org/wiki/File:2020_BMW_X5_xDrive_40i,_front_left.jpg" },
+    imageCredit: { author: "M 93", license: "CC BY-SA 3.0 de", source: "https://commons.wikimedia.org/wiki/File:BMW_iX5_60_xDrive_(G65)_–_f_20082026.jpg" },
   },
   {
     slug: "bmw-7-series",
@@ -187,7 +187,7 @@ export const cars: Car[] = [
     ],
     accent: "from-red-900/80 to-neutral-900/80",
     image: "/cars/porsche-cayenne.jpg",
-    imageCredit: { author: "Tokumeigakarinoaoshima", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:Porsche_Cayenne_(PO536)_front.jpg" },
+    imageCredit: { author: "M 93", license: "CC BY-SA 3.0 de", source: "https://commons.wikimedia.org/wiki/File:Porsche_Cayenne_S_(III,_Facelift)_–_f_22022025.jpg" },
   },
   {
     slug: "porsche-panamera",
@@ -208,7 +208,7 @@ export const cars: Car[] = [
     ],
     accent: "from-rose-900/80 to-neutral-900/80",
     image: "/cars/porsche-panamera.jpg",
-    imageCredit: { author: "Tokumeigakarinoaoshima", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:Porsche_Panamera_GTS_(Type_971)_front.jpg" },
+    imageCredit: { author: "Alexander-93", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:Porsche_972_IMG_9526.jpg" },
   },
   {
     slug: "range-rover-sport",
@@ -250,7 +250,7 @@ export const cars: Car[] = [
     ],
     accent: "from-gray-700/80 to-gray-900/80",
     image: "/cars/audi-q8.jpg",
-    imageCredit: { author: "Vauxford", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:2019_Audi_Q8_Front.jpg" },
+    imageCredit: { author: "Matti Blume", license: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:Audi,_EMS_2024,_Essen_(P1031581).jpg" },
   },
   {
     slug: "genesis-g90",

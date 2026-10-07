@@ -4,6 +4,7 @@ import "./globals.css";
 import { siteConfig } from "@/lib/site";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { MobileCtaBar } from "@/components/MobileCtaBar";
 import { JsonLd } from "@/components/JsonLd";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import { YandexMetrika } from "@/components/YandexMetrika";
@@ -86,12 +87,17 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="ru" className={`${inter.variable} ${manrope.variable} h-full antialiased`}>
+    <html
+      lang="ru"
+      data-scroll-behavior="smooth"
+      className={`${inter.variable} ${manrope.variable} h-full antialiased`}
+    >
       <body className="flex min-h-full flex-col font-sans">
         <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <MobileCtaBar />
         <YandexMetrika />
       </body>
     </html>

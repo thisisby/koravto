@@ -46,6 +46,15 @@ export function Footer() {
               <Icon.Instagram className="size-5" />
             </a>
             <a
+              href={siteConfig.social.youtube}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="YouTube"
+              className="inline-flex size-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-accent-500 hover:text-navy-900"
+            >
+              <Icon.YouTube className="size-5" />
+            </a>
+            <a
               href={links.email()}
               aria-label="Email"
               className="inline-flex size-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-accent-500 hover:text-navy-900"

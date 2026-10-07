@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
+import { siteConfig } from "@/lib/site";
 import { PageHero } from "@/components/PageHero";
 import { CtaSection } from "@/components/CtaSection";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -114,13 +115,15 @@ export default function WhyKyrgyzstanPage() {
               </div>
             ))}
           </div>
-          <p className="mt-8 text-sm text-muted">
-            Подробный разбор платежей —{" "}
-            <Link href="/blog/rastamozhka-avto-iz-korei-cherez-kyrgyzstan" className="font-semibold text-navy-900 underline decoration-accent-500 decoration-2 underline-offset-4">
-              в статье о растаможке
-            </Link>
-            .
-          </p>
+          {siteConfig.features.blog && (
+            <p className="mt-8 text-sm text-muted">
+              Подробный разбор платежей —{" "}
+              <Link href="/blog/rastamozhka-avto-iz-korei-cherez-kyrgyzstan" className="font-semibold text-navy-900 underline decoration-accent-500 decoration-2 underline-offset-4">
+                в статье о растаможке
+              </Link>
+              .
+            </p>
+          )}
         </div>
       </section>
 

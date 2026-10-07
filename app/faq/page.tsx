@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { siteConfig } from "@/lib/site";
 import { buildMetadata, faqJsonLd } from "@/lib/seo";
 import { faq } from "@/lib/content/faq";
 import { JsonLd } from "@/components/JsonLd";
@@ -15,6 +17,7 @@ export const metadata: Metadata = buildMetadata({
 });
 
 export default function FaqPage() {
+  if (!siteConfig.features.faq) notFound();
   return (
     <>
       <JsonLd data={faqJsonLd(faq)} />

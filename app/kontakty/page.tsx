@@ -68,6 +68,14 @@ const channels = [
     color: "bg-pink-500",
     hint: "Фото и видео автомобилей",
   },
+  {
+    icon: Icon.YouTube,
+    title: "YouTube",
+    value: "@elitecarskr",
+    href: siteConfig.social.youtube,
+    color: "bg-red-600",
+    hint: "Видеоотчёты осмотров и обзоры",
+  },
 ];
 
 export default function ContactsPage() {

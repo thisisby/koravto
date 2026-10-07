@@ -102,26 +102,26 @@ export default function HomePage() {
             </p>
 
             <div className="mt-9 flex flex-wrap gap-3">
-              <ButtonLink href="#zayavka" size="lg">
-                Получить расчёт
+              <ButtonLink href="/kak-eto-rabotaet" size="lg">
+                Как это работает
                 <Icon.ArrowRight className="size-5" />
               </ButtonLink>
               <ButtonAnchor
-                href={links.whatsapp("Здравствуйте! Интересует подбор автомобиля из Кореи.")}
+                href={links.whatsapp("Здравствуйте! Хочу получить расчёт стоимости автомобиля из Кореи.")}
                 target="_blank"
                 rel="noopener noreferrer"
                 variant="outline-light"
                 size="lg"
               >
                 <Icon.WhatsApp className="size-5" />
-                WhatsApp
+                Получить расчёт
               </ButtonAnchor>
             </div>
 
             <ul className="mt-10 grid gap-3 text-[15px] text-white/80 sm:grid-cols-2">
               {[
                 "Только автомобили с проверенной историей",
-                "На 15–25% ниже цен в России",
+                "На 30% ниже цен в России",
                 "45 дней до передачи",
                 "Личный менеджер и видеоотчёты",
               ].map((t) => (
@@ -330,10 +330,12 @@ export default function HomePage() {
               title="Частые вопросы"
               description="Не нашли ответ — напишите, ответим лично."
             />
-            <ButtonLink href="/faq" variant="secondary" className="mt-8">
-              Все вопросы
-              <Icon.ArrowRight className="size-4" />
-            </ButtonLink>
+            {siteConfig.features.faq && (
+              <ButtonLink href="/faq" variant="secondary" className="mt-8">
+                Все вопросы
+                <Icon.ArrowRight className="size-4" />
+              </ButtonLink>
+            )}
           </div>
           <Faq items={faq.slice(0, 6)} />
         </div>

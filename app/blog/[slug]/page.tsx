@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { articles, getArticle, sortedArticles, type ArticleBlock } from "@/lib/content/articles";
 import { articleJsonLd, buildMetadata } from "@/lib/seo";
+import { siteConfig } from "@/lib/site";
 import { JsonLd } from "@/components/JsonLd";
 import { PageHero } from "@/components/PageHero";
 import { CtaSection } from "@/components/CtaSection";
@@ -10,13 +11,14 @@ import { Icon } from "@/components/ui/Icons";
 import { ButtonLink } from "@/components/ui/Button";
 
 export function generateStaticParams() {
+  if (!siteConfig.features.blog) return [];
   return articles.map((a) => ({ slug: a.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps<"/blog/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const a = getArticle(slug);
-  if (!a) return {};
+  if (!a || !siteConfig.features.blog) return {};
   return buildMetadata({
     title: a.title,
     description: a.description,
@@ -67,7 +69,7 @@ function Block({ block }: { block: ArticleBlock }) {
 export default async function ArticlePage({ params }: PageProps<"/blog/[slug]">) {
   const { slug } = await params;
   const a = getArticle(slug);
-  if (!a) notFound();
+  if (!a || !siteConfig.features.blog) notFound();
 
   const others = sortedArticles.filter((x) => x.slug !== a.slug).slice(0, 3);
   const toc = a.blocks.filter((b) => b.type === "h2") as { type: "h2"; text: string }[];

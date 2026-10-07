@@ -1,5 +1,7 @@
-import type { Step } from "@/lib/content/steps";
+import Link from "next/link";
+import { parseVideo, type Step } from "@/lib/content/steps";
 import { Icon } from "@/components/ui/Icons";
+import { VideoGallery } from "@/components/VideoGallery";
 
 export function StepsTimeline({ steps, detailed = false }: { steps: Step[]; detailed?: boolean }) {
   return (
@@ -33,6 +35,23 @@ export function StepsTimeline({ steps, detailed = false }: { steps: Step[]; deta
                   </li>
                 ))}
               </ul>
+            )}
+            {detailed && s.videos && s.videos.length > 0 && (
+              <div className="mt-6">
+                <div className="mb-3 flex flex-wrap items-center justify-between gap-2 text-sm font-semibold text-navy-900">
+                  <span className="inline-flex items-center gap-2">
+                    <Icon.Camera className="size-4 text-accent-600" />
+                    {s.videosHeading ?? "Видео с наших сделок"}
+                  </span>
+                  {s.galleryLink && (
+                    <Link href="/galereya" className="inline-flex items-center gap-1 text-accent-600 hover:text-accent-500">
+                      Фото осмотра
+                      <Icon.ArrowRight className="size-3.5" />
+                    </Link>
+                  )}
+                </div>
+                <VideoGallery videos={s.videos.map((v, i) => parseVideo(v, i, s.title))} label="Видеоотчёт" />
+              </div>
             )}
           </div>
         </li>

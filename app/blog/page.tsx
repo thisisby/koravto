@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import { siteConfig } from "@/lib/site";
 import { buildMetadata } from "@/lib/seo";
 import { sortedArticles } from "@/lib/content/articles";
 import { PageHero } from "@/components/PageHero";
@@ -17,6 +19,7 @@ const formatDate = (iso: string) =>
   new Intl.DateTimeFormat("ru-RU", { day: "numeric", month: "long", year: "numeric" }).format(new Date(iso));
 
 export default function BlogPage() {
+  if (!siteConfig.features.blog) notFound();
   const [first, ...rest] = sortedArticles;
   return (
     <>
