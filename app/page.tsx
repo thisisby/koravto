@@ -88,7 +88,7 @@ export default function HomePage() {
           <div className="animate-fade-up">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-xs font-semibold text-white/80">
               <span className="size-1.5 rounded-full bg-accent-400" />
-              Автомобили от 60 000 $ · Оформление в ЕАЭС
+              Автомобили от $60 000  · Оформление в ЕАЭС
             </span>
             <h1 className="font-display mt-6 text-balance text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-[3.4rem]">
               Премиальные автомобили из Кореи{" "}
