@@ -1,18 +1,27 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icons";
+import { LEAD_NAME_KEY, LEAD_PENDING_KEY } from "@/components/ThankYou";
 import { links } from "@/lib/site";
 
 type Status = "idle" | "sending" | "ok" | "error";
+
+export const THANK_YOU_PATH = "/spasibo";
 
 const inputClass =
   "w-full rounded-xl border border-line bg-white px-4 py-3 text-[15px] text-navy-900 placeholder:text-muted/70 outline-none transition focus:border-accent-500 focus:ring-4 focus:ring-accent-500/15";
 
 export function LeadForm({ compact = false, defaultCar = "" }: { compact?: boolean; defaultCar?: string }) {
+  const router = useRouter();
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    router.prefetch(THANK_YOU_PATH);
+  }, [router]);
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -31,44 +40,22 @@ export function LeadForm({ compact = false, defaultCar = "" }: { compact?: boole
         throw new Error(body?.error ?? "Не удалось отправить заявку");
       }
       setStatus("ok");
+      // Hand the name and a one-shot flag to the thank-you page (greeting + analytics goal).
+      try {
+        sessionStorage.setItem(LEAD_NAME_KEY, typeof data.name === "string" ? data.name : "");
+        sessionStorage.setItem(LEAD_PENDING_KEY, "1");
+      } catch {
+        /* storage unavailable (private mode) — page still works, just without the name */
+      }
       form.reset();
+      router.push(THANK_YOU_PATH);
     } catch (err) {
       setStatus("error");
       setError(err instanceof Error ? err.message : "Ошибка отправки");
     }
   }
 
-  if (status === "ok") {
-    return (
-      <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-6 text-center">
-        <div className="mx-auto mb-3 flex size-12 items-center justify-center rounded-full bg-emerald-500 text-white">
-          <Icon.Check className="size-6" />
-        </div>
-        <h3 className="font-display text-xl font-bold text-navy-900">Заявка отправлена</h3>
-        <p className="mt-2 text-[15px] text-muted">
-          Менеджер свяжется с вами в ближайшее время. Если хотите быстрее — напишите нам напрямую:
-        </p>
-        <div className="mt-4 flex flex-wrap justify-center gap-2">
-          <a
-            href={links.whatsapp()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-4 py-2 text-sm font-semibold text-white"
-          >
-            <Icon.WhatsApp className="size-4" /> WhatsApp
-          </a>
-          <a
-            href={links.telegram()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-sky-600 px-4 py-2 text-sm font-semibold text-white"
-          >
-            <Icon.Telegram className="size-4" /> Telegram
-          </a>
-        </div>
-      </div>
-    );
-  }
+  const busy = status === "sending" || status === "ok";
 
   return (
     <form onSubmit={onSubmit} className="space-y-3.5" noValidate>
@@ -115,9 +102,9 @@ export function LeadForm({ compact = false, defaultCar = "" }: { compact?: boole
         </label>
       )}
 
-      <Button type="submit" size="lg" className="w-full" disabled={status === "sending"}>
-        {status === "sending" ? "Отправляем…" : "Получить расчёт стоимости"}
-        {status !== "sending" && <Icon.ArrowRight className="size-5" />}
+      <Button type="submit" size="lg" className="w-full" disabled={busy}>
+        {status === "sending" ? "Отправляем…" : status === "ok" ? "Отправлено" : "Получить расчёт стоимости"}
+        {!busy && <Icon.ArrowRight className="size-5" />}
       </Button>
 
       {status === "error" && (
