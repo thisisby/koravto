@@ -56,7 +56,7 @@ export const siteConfig = {
   },
 
   analytics: {
-    yandexMetrikaId: process.env.NEXT_PUBLIC_YM_ID ?? "",
+    yandexMetrikaId: process.env.NEXT_PUBLIC_YM_ID || "113969552",
   },
 
   /**
