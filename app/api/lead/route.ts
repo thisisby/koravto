@@ -1,6 +1,10 @@
-import { NextResponse, type NextRequest } from "next/server";
+import { after, NextResponse, type NextRequest } from "next/server";
 import { siteConfig } from "@/lib/site";
 import { createLead } from "@/lib/data/leads";
+
+/** Hard limits so a slow/blocked upstream can never leave the form spinning. */
+const STORAGE_TIMEOUT_MS = 15_000;
+const TELEGRAM_TIMEOUT_MS = 10_000;
 
 type LeadPayload = {
   name?: string;
@@ -61,12 +65,16 @@ export async function POST(request: NextRequest) {
   // 1. Persist to the CRM (storage). This is the system of record.
   let saved = false;
   try {
-    await createLead({
-      ...lead,
-      ip: ip === "unknown" ? undefined : ip,
-      userAgent: request.headers.get("user-agent")?.slice(0, 300) ?? undefined,
-      referer: request.headers.get("referer")?.slice(0, 300) ?? undefined,
-    });
+    await withTimeout(
+      createLead({
+        ...lead,
+        ip: ip === "unknown" ? undefined : ip,
+        userAgent: request.headers.get("user-agent")?.slice(0, 300) ?? undefined,
+        referer: request.headers.get("referer")?.slice(0, 300) ?? undefined,
+      }),
+      STORAGE_TIMEOUT_MS,
+      "storage",
+    );
     saved = true;
   } catch (err) {
     console.error("[lead] storage write failed", err);
@@ -90,27 +98,56 @@ export async function POST(request: NextRequest) {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
 
-  let notified = false;
-  if (token && chatId) {
-    try {
-      const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ chat_id: chatId, text }),
-      });
-      if (res.ok) notified = true;
-      else console.error("Telegram sendMessage failed", res.status, await res.text());
-    } catch (err) {
-      console.error("Telegram request error", err);
-    }
-  } else {
+  if (!token || !chatId) {
     // No delivery channel configured yet — log so nothing is lost during development.
     console.log("[lead]", text);
+  } else if (saved) {
+    // The lead is safe in the CRM: don't make the visitor wait for Telegram
+    // (api.telegram.org is slow or blocked on some networks). Runs after the response is sent.
+    after(() => sendTelegram(token, chatId, text));
+  } else {
+    // Storage failed — Telegram is the only channel left, so wait for it (with a timeout).
+    if (!(await sendTelegram(token, chatId, text))) {
+      return NextResponse.json({ error: "Не удалось отправить заявку" }, { status: 502 });
+    }
+    return NextResponse.json({ ok: true });
   }
 
-  if (!saved && !notified) {
+  if (!saved) {
     return NextResponse.json({ error: "Не удалось отправить заявку" }, { status: 502 });
   }
 
   return NextResponse.json({ ok: true });
+}
+
+async function sendTelegram(token: string, chatId: string, text: string) {
+  try {
+    const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ chat_id: chatId, text }),
+      signal: AbortSignal.timeout(TELEGRAM_TIMEOUT_MS),
+    });
+    if (res.ok) return true;
+    console.error("Telegram sendMessage failed", res.status, await res.text());
+  } catch (err) {
+    console.error("Telegram request error", err instanceof Error ? err.message : err);
+  }
+  return false;
+}
+
+function withTimeout<T>(promise: Promise<T>, ms: number, label: string) {
+  return new Promise<T>((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error(`${label} timed out after ${ms}ms`)), ms);
+    promise.then(
+      (v) => {
+        clearTimeout(timer);
+        resolve(v);
+      },
+      (e) => {
+        clearTimeout(timer);
+        reject(e);
+      },
+    );
+  });
 }
