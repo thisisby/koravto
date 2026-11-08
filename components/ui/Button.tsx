@@ -1,7 +1,14 @@
 import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
 
-type Variant = "primary" | "secondary" | "ghost" | "white" | "outline-light";
+type Variant =
+  | "primary"
+  | "secondary"
+  | "ghost"
+  | "white"
+  | "outline-light"
+  | "whatsapp"
+  | "telegram";
 type Size = "sm" | "md" | "lg";
 
 const variants: Record<Variant, string> = {
@@ -11,6 +18,10 @@ const variants: Record<Variant, string> = {
   ghost: "text-navy-900 hover:bg-navy-900/5",
   white: "bg-white text-navy-900 hover:bg-white/90 shadow-soft",
   "outline-light": "border border-white/25 text-white hover:bg-white/10",
+  whatsapp:
+    "bg-[#25D366] text-white hover:bg-[#1ebe57] shadow-[0_8px_24px_-8px_rgb(37_211_102/0.55)]",
+  telegram:
+    "bg-[#229ED9] text-white hover:bg-[#1b8fc7] shadow-[0_8px_24px_-8px_rgb(34_158_217/0.55)]",
 };
 
 const sizes: Record<Size, string> = {

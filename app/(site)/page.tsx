@@ -111,7 +111,7 @@ export default async function HomePage() {
                 href={links.whatsapp("Здравствуйте! Хочу получить расчёт стоимости автомобиля из Кореи.")}
                 target="_blank"
                 rel="noopener noreferrer"
-                variant="outline-light"
+                variant="whatsapp"
                 size="lg"
               >
                 <Icon.WhatsApp className="size-5" />

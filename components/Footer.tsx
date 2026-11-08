@@ -24,7 +24,7 @@ export async function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="WhatsApp"
-              className="inline-flex size-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-accent-500 hover:text-navy-900"
+              className="inline-flex size-10 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_6px_18px_-6px_rgb(37_211_102/0.7)] transition hover:bg-[#1ebe57]"
             >
               <Icon.WhatsApp className="size-5" />
             </a>
@@ -33,7 +33,7 @@ export async function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Telegram"
-              className="inline-flex size-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-accent-500 hover:text-navy-900"
+              className="inline-flex size-10 items-center justify-center rounded-full bg-[#229ED9] text-white shadow-[0_6px_18px_-6px_rgb(34_158_217/0.7)] transition hover:bg-[#1b8fc7]"
             >
               <Icon.Telegram className="size-5" />
             </a>
@@ -42,7 +42,7 @@ export async function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
-              className="inline-flex size-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-accent-500 hover:text-navy-900"
+              className="inline-flex size-10 items-center justify-center rounded-full bg-gradient-to-br from-[#f58529] via-[#dd2a7b] to-[#8134af] text-white shadow-[0_6px_18px_-6px_rgb(221_42_123/0.7)] transition hover:brightness-110"
             >
               <Icon.Instagram className="size-5" />
             </a>
@@ -51,14 +51,14 @@ export async function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="YouTube"
-              className="inline-flex size-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-accent-500 hover:text-navy-900"
+              className="inline-flex size-10 items-center justify-center rounded-full bg-[#FF0000] text-white shadow-[0_6px_18px_-6px_rgb(255_0_0/0.55)] transition hover:bg-[#e60000]"
             >
               <Icon.YouTube className="size-5" />
             </a>
             <a
               href={links.email()}
               aria-label="Email"
-              className="inline-flex size-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-accent-500 hover:text-navy-900"
+              className="inline-flex size-10 items-center justify-center rounded-full bg-[#EA4335] text-white shadow-[0_6px_18px_-6px_rgb(234_67_53/0.55)] transition hover:bg-[#d33426]"
             >
               <Icon.Mail className="size-5" />
             </a>

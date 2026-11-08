@@ -57,12 +57,13 @@ export default function ThankYouPage() {
               href={links.whatsapp("Здравствуйте! Я только что оставил заявку на сайте.")}
               target="_blank"
               rel="noopener noreferrer"
+              variant="whatsapp"
               size="lg"
             >
               <Icon.WhatsApp className="size-5" />
               Написать в WhatsApp
             </ButtonAnchor>
-            <ButtonAnchor href={links.telegram()} target="_blank" rel="noopener noreferrer" variant="outline-light" size="lg">
+            <ButtonAnchor href={links.telegram()} target="_blank" rel="noopener noreferrer" variant="telegram" size="lg">
               <Icon.Telegram className="size-5" />
               Telegram
             </ButtonAnchor>

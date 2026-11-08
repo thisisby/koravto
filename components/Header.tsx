@@ -74,6 +74,7 @@ export function Header() {
             href={links.whatsapp("Здравствуйте! Интересует автомобиль из Кореи.")}
             target="_blank"
             rel="noopener noreferrer"
+            variant="whatsapp"
             size="sm"
           >
             <Icon.WhatsApp className="size-4" />
@@ -116,11 +117,12 @@ export function Header() {
                 href={links.whatsapp("Здравствуйте! Интересует автомобиль из Кореи.")}
                 target="_blank"
                 rel="noopener noreferrer"
+                variant="whatsapp"
               >
                 <Icon.WhatsApp className="size-5" />
                 Написать в WhatsApp
               </ButtonAnchor>
-              <ButtonAnchor href={links.telegram()} target="_blank" rel="noopener noreferrer" variant="outline-light">
+              <ButtonAnchor href={links.telegram()} target="_blank" rel="noopener noreferrer" variant="telegram">
                 <Icon.Telegram className="size-5" />
                 Написать в Telegram
               </ButtonAnchor>

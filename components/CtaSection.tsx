@@ -42,23 +42,23 @@ export function CtaSection({
               href={links.whatsapp("Здравствуйте! Интересует подбор автомобиля из Кореи.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-3 text-sm font-semibold transition hover:bg-white/10"
+              className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-3 text-sm font-semibold text-white shadow-[0_8px_24px_-8px_rgb(37_211_102/0.55)] transition hover:bg-[#1ebe57]"
             >
-              <Icon.WhatsApp className="size-5 text-emerald-400" /> WhatsApp
+              <Icon.WhatsApp className="size-5" /> WhatsApp
             </a>
             <a
               href={links.telegram()}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-3 text-sm font-semibold transition hover:bg-white/10"
+              className="inline-flex items-center gap-2 rounded-full bg-[#229ED9] px-5 py-3 text-sm font-semibold text-white shadow-[0_8px_24px_-8px_rgb(34_158_217/0.55)] transition hover:bg-[#1b8fc7]"
             >
-              <Icon.Telegram className="size-5 text-sky-400" /> Telegram
+              <Icon.Telegram className="size-5" /> Telegram
             </a>
             <a
               href={links.phone()}
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-3 text-sm font-semibold transition hover:bg-white/10"
+              className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-navy-900 shadow-soft transition hover:bg-white/90"
             >
-              <Icon.Phone className="size-5 text-accent-400" /> {siteConfig.contacts.phoneDisplay}
+              <Icon.Phone className="size-5 text-accent-600" /> {siteConfig.contacts.phoneDisplay}
             </a>
           </div>
         </div>
