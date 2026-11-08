@@ -35,17 +35,19 @@ export default async function AdminPanelLayout({ children }: { children: ReactNo
         </div>
       </header>
 
-      <div className="container-x flex-1 py-8">
-        {storage.mode === "local" && (
-          <div className="mb-6">
-            <Notice tone="warn">
-              Хранилище Vercel Blob не подключено — данные и фото сохраняются локально в <code>public/uploads/</code>.
-              Для продакшена задайте <code>BLOB_READ_WRITE_TOKEN</code> (см. README).
-            </Notice>
-          </div>
-        )}
-        {children}
-      </div>
+      <main className="flex-1">
+        <div className="container-x py-8">
+          {storage.mode === "local" && (
+            <div className="mb-6">
+              <Notice tone="warn">
+                Хранилище Vercel Blob не подключено — данные и фото сохраняются локально в <code>public/uploads/</code>.
+                Для продакшена задайте <code>BLOB_READ_WRITE_TOKEN</code> (см. README).
+              </Notice>
+            </div>
+          )}
+          {children}
+        </div>
+      </main>
     </div>
   );
 }
