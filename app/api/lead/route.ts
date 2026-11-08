@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { siteConfig } from "@/lib/site";
+import { createLead } from "@/lib/data/leads";
 
 type LeadPayload = {
   name?: string;
@@ -57,6 +58,21 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Укажите имя и телефон" }, { status: 400 });
   }
 
+  // 1. Persist to the CRM (storage). This is the system of record.
+  let saved = false;
+  try {
+    await createLead({
+      ...lead,
+      ip: ip === "unknown" ? undefined : ip,
+      userAgent: request.headers.get("user-agent")?.slice(0, 300) ?? undefined,
+      referer: request.headers.get("referer")?.slice(0, 300) ?? undefined,
+    });
+    saved = true;
+  } catch (err) {
+    console.error("[lead] storage write failed", err);
+  }
+
+  // 2. Notify via Telegram (optional).
   const text = [
     `🚗 Новая заявка — ${siteConfig.name}`,
     ``,
@@ -66,6 +82,7 @@ export async function POST(request: NextRequest) {
     lead.message ? `💬 Комментарий: ${lead.message}` : null,
     ``,
     `📄 Страница: ${lead.page || "/"}`,
+    `🗂 CRM: ${new URL("/super/secret/admin/leads", siteConfig.url).toString()}`,
   ]
     .filter((l): l is string => l !== null)
     .join("\n");
@@ -73,6 +90,7 @@ export async function POST(request: NextRequest) {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
 
+  let notified = false;
   if (token && chatId) {
     try {
       const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
@@ -80,17 +98,18 @@ export async function POST(request: NextRequest) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ chat_id: chatId, text }),
       });
-      if (!res.ok) {
-        console.error("Telegram sendMessage failed", res.status, await res.text());
-        return NextResponse.json({ error: "Не удалось отправить заявку" }, { status: 502 });
-      }
+      if (res.ok) notified = true;
+      else console.error("Telegram sendMessage failed", res.status, await res.text());
     } catch (err) {
       console.error("Telegram request error", err);
-      return NextResponse.json({ error: "Не удалось отправить заявку" }, { status: 502 });
     }
   } else {
     // No delivery channel configured yet — log so nothing is lost during development.
     console.log("[lead]", text);
+  }
+
+  if (!saved && !notified) {
+    return NextResponse.json({ error: "Не удалось отправить заявку" }, { status: 502 });
   }
 
   return NextResponse.json({ ok: true });

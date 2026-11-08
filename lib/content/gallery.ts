@@ -1,15 +1,20 @@
 /**
  * Photo gallery content.
  *
- * Photos live in `public/gallery/<album>/`. Each album is one real car we inspected
- * and bought in Korea. `kind` splits photos into the two gallery filters:
+ * Each album is one real car we inspected and bought in Korea. `kind` splits
+ * photos into the two gallery filters:
  *   - "car"      — exterior / beauty shots of the vehicle
  *   - "process"  — inspection details: mileage, VIN, paint, engine bay, etc.
+ *
+ * The list below is the seed content (photos under `public/gallery/<album>/`).
+ * Once the admin panel saves the gallery to storage, photos are uploaded to
+ * Vercel Blob and `src` becomes an absolute URL (see `lib/data/gallery.ts`).
  */
 
 export type PhotoKind = "car" | "process";
 
 export type GalleryPhoto = {
+  /** Absolute URL (Vercel Blob) or path under /public */
   src: string;
   alt: string;
   kind: PhotoKind;
@@ -17,6 +22,8 @@ export type GalleryPhoto = {
   width: number;
   height: number;
 };
+
+export const photoKindLabel: Record<PhotoKind, string> = { car: "Автомобиль", process: "Осмотр" };
 
 export type GalleryAlbum = {
   slug: string;
@@ -49,7 +56,7 @@ function album(slug: string, title: string, meta: string, raw: Raw[]): GalleryAl
   };
 }
 
-export const galleryAlbums: GalleryAlbum[] = [
+export const seedGalleryAlbums: GalleryAlbum[] = [
   album("bmw-x6", "BMW X6 xDrive40i M Sport", "Пробег 27 065 км · осмотр и выкуп в Сеуле", [
     ["7506", "car", "вид спереди на парковке дилера"],
     ["7507", "process", "комплект ключей"],
@@ -103,7 +110,3 @@ export const galleryAlbums: GalleryAlbum[] = [
     ["7555", "process", "разъёмы и датчики двигателя"],
   ]),
 ];
-
-export const galleryPhotos: (GalleryPhoto & { album: string })[] = galleryAlbums.flatMap((a) =>
-  a.photos.map((p) => ({ ...p, album: a.title })),
-);

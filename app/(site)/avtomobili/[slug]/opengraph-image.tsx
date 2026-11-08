@@ -1,4 +1,5 @@
-import { formatRange, getCar } from "@/lib/content/cars";
+import { formatRange } from "@/lib/content/cars";
+import { getCar } from "@/lib/data/cars";
 import { ogContentType, ogSize, renderOgImage } from "@/lib/og";
 
 export const alt = "Автомобиль из Кореи с доставкой в Россию";
@@ -7,7 +8,7 @@ export const contentType = ogContentType;
 
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const c = getCar(slug);
+  const c = await getCar(slug);
   return renderOgImage({
     title: c ? `${c.brand} ${c.model} из Кореи` : "Автомобили из Кореи",
     subtitle: c ? `${c.segment} · под ключ в России ${formatRange(c.priceTurnkey)}` : undefined,

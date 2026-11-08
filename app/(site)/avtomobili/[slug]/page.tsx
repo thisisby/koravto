@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { cars, formatRange, formatUsd, getCar } from "@/lib/content/cars";
+import { formatRange, formatUsd } from "@/lib/content/cars";
+import { getCar, getPublishedCars, loadCars } from "@/lib/data/cars";
 import { buildMetadata, productJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 import { PageHero } from "@/components/PageHero";
@@ -10,13 +11,14 @@ import { CtaSection } from "@/components/CtaSection";
 import { Icon } from "@/components/ui/Icons";
 import { ButtonLink } from "@/components/ui/Button";
 
-export function generateStaticParams() {
-  return cars.map((c) => ({ slug: c.slug }));
+export async function generateStaticParams() {
+  const cars = await loadCars();
+  return cars.filter((c) => !c.hidden).map((c) => ({ slug: c.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps<"/avtomobili/[slug]">): Promise<Metadata> {
   const { slug } = await params;
-  const car = getCar(slug);
+  const car = await getCar(slug);
   if (!car) return {};
   return buildMetadata({
     title: `${car.brand} ${car.model} из Кореи: цена под ключ в России`,
@@ -35,9 +37,10 @@ export async function generateMetadata({ params }: PageProps<"/avtomobili/[slug]
 
 export default async function CarPage({ params }: PageProps<"/avtomobili/[slug]">) {
   const { slug } = await params;
-  const car = getCar(slug);
+  const car = await getCar(slug);
   if (!car) notFound();
 
+  const cars = await getPublishedCars();
   const related = cars.filter((c) => c.slug !== car.slug && c.segment === car.segment).slice(0, 3);
   const fallback = cars.filter((c) => c.slug !== car.slug && !related.includes(c)).slice(0, 3 - related.length);
   const others = [...related, ...fallback];

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { siteConfig, links } from "@/lib/site";
-import { steps } from "@/lib/content/steps";
 import { faq } from "@/lib/content/faq";
-import { cars } from "@/lib/content/cars";
+import { steps } from "@/lib/content/steps";
+import { getPublishedCars } from "@/lib/data/cars";
 import { faqJsonLd, howToJsonLd, serviceJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 import { Icon } from "@/components/ui/Icons";
@@ -75,7 +75,8 @@ const trust = [
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const cars = await getPublishedCars();
   return (
     <>
       <JsonLd data={[serviceJsonLd(), howToJsonLd(steps), faqJsonLd(faq.slice(0, 6))]} />

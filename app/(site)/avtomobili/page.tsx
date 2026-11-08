@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/seo";
-import { cars } from "@/lib/content/cars";
+import { getPublishedCars } from "@/lib/data/cars";
 import { PageHero } from "@/components/PageHero";
 import { CarCard } from "@/components/CarCard";
 import { CtaSection } from "@/components/CtaSection";
@@ -13,7 +13,8 @@ export const metadata: Metadata = buildMetadata({
   keywords: ["Mercedes из Кореи цена", "BMW из Кореи", "Porsche из Кореи", "премиум авто из Кореи каталог"],
 });
 
-export default function CarsPage() {
+export default async function CarsPage() {
+  const cars = await getPublishedCars();
   const brands = Array.from(new Set(cars.map((c) => c.brand)));
   return (
     <>

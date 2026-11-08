@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { buildMetadata, howToJsonLd } from "@/lib/seo";
-import { steps } from "@/lib/content/steps";
+import { getSteps } from "@/lib/data/videos";
 import { JsonLd } from "@/components/JsonLd";
 import { PageHero } from "@/components/PageHero";
 import { StepsTimeline } from "@/components/StepsTimeline";
@@ -22,7 +22,8 @@ const payments = [
   { title: "Финальный платёж", pct: "Передача", text: "Доставка в Россию, утильсбор и комиссия — при передаче автомобиля и документов." },
 ];
 
-export default function HowItWorksPage() {
+export default async function HowItWorksPage() {
+  const steps = await getSteps();
   return (
     <>
       <JsonLd data={howToJsonLd(steps)} />

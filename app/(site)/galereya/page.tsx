@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
-import { galleryAlbums, galleryPhotos } from "@/lib/content/gallery";
+import { getAlbums, getGalleryPhotos } from "@/lib/data/gallery";
 import { PageHero } from "@/components/PageHero";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { CtaSection } from "@/components/CtaSection";
@@ -15,7 +15,15 @@ export const metadata: Metadata = buildMetadata({
   keywords: ["фото авто из Кореи", "осмотр авто в Корее", "BMW X6 из Кореи фото"],
 });
 
-export default function GalleryPage() {
+function pluralCars(n: number) {
+  const mod10 = n % 10;
+  const mod100 = n % 100;
+  const word = mod10 === 1 && mod100 !== 11 ? "автомобиль" : mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20) ? "автомобиля" : "автомобилей";
+  return `${n} ${word}`;
+}
+
+export default async function GalleryPage() {
+  const [galleryAlbums, galleryPhotos] = await Promise.all([getAlbums(), getGalleryPhotos()]);
   const cars = galleryPhotos.filter((p) => p.kind === "car").length;
   const process = galleryPhotos.filter((p) => p.kind === "process").length;
 
@@ -30,7 +38,7 @@ export default function GalleryPage() {
         <div className="mt-10 flex flex-wrap gap-3 text-sm">
           {[
             { icon: Icon.Camera, text: `${galleryPhotos.length} фото` },
-            { icon: Icon.Check, text: `${galleryAlbums.length} автомобиль` },
+            { icon: Icon.Check, text: pluralCars(galleryAlbums.length) },
             { icon: Icon.Shield, text: `${process} фото осмотра · ${cars} фото авто` },
           ].map(({ icon: I, text }) => (
             <span
@@ -48,15 +56,30 @@ export default function GalleryPage() {
         <div className="container-x">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
-              {galleryAlbums.map((a) => (
-                <div key={a.slug}>
+              {galleryAlbums.length === 1 ? (
+                <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent-600">Сделка</p>
                   <h2 className="font-display mt-2 text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">
-                    {a.title}
+                    {galleryAlbums[0].title}
                   </h2>
-                  <p className="mt-2 text-[15.5px] text-muted">{a.meta}</p>
+                  <p className="mt-2 text-[15.5px] text-muted">{galleryAlbums[0].meta}</p>
                 </div>
-              ))}
+              ) : (
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent-600">Сделки</p>
+                  <h2 className="font-display mt-2 text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">
+                    {pluralCars(galleryAlbums.length)} из Кореи — фото и осмотр
+                  </h2>
+                  <ul className="mt-4 flex flex-wrap gap-2">
+                    {galleryAlbums.map((a) => (
+                      <li key={a.slug} className="rounded-full border border-line bg-white px-3.5 py-1.5 text-sm text-navy-900">
+                        <span className="font-semibold">{a.title}</span>
+                        {a.meta && <span className="text-muted"> · {a.meta}</span>}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
             <Link
               href="/kak-eto-rabotaet"

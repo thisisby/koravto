@@ -20,6 +20,24 @@ async function loadAssets() {
   };
 }
 
+/** Loads a photo as a data URL; remote URLs are fetched, local paths are read from /public. Never throws. */
+async function loadPhoto(photo: string): Promise<string | null> {
+  try {
+    if (/^https?:\/\//.test(photo)) {
+      const res = await fetch(photo);
+      if (!res.ok) return null;
+      const type = res.headers.get("content-type")?.split(";")[0] || "image/jpeg";
+      return `data:${type};base64,${Buffer.from(await res.arrayBuffer()).toString("base64")}`;
+    }
+    const file = await readFile(join(process.cwd(), "public", photo));
+    const type = photo.endsWith(".png") ? "image/png" : photo.endsWith(".webp") ? "image/webp" : "image/jpeg";
+    return `data:${type};base64,${file.toString("base64")}`;
+  } catch (err) {
+    console.warn("[og] could not load photo", photo, err);
+    return null;
+  }
+}
+
 /** Shared branded OG image with the official logo. */
 export async function renderOgImage({
   title,
@@ -30,13 +48,11 @@ export async function renderOgImage({
   title: string;
   subtitle?: string;
   eyebrow?: string;
-  /** Path under /public to a photo shown on the right side (e.g. "/cars/genesis-g90.jpg") */
+  /** Photo shown on the right side: absolute URL (Vercel Blob) or a path under /public (e.g. "/cars/genesis-g90.jpg") */
   photo?: string;
 }) {
   const { fonts, logoSrc } = await loadAssets();
-  const photoSrc = photo
-    ? `data:image/jpeg;base64,${(await readFile(join(process.cwd(), "public", photo))).toString("base64")}`
-    : null;
+  const photoSrc = photo ? await loadPhoto(photo) : null;
   return new ImageResponse(
     (
       <div

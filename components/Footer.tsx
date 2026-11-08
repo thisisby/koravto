@@ -2,10 +2,11 @@ import Link from "next/link";
 import { links, nav, siteConfig } from "@/lib/site";
 import { Icon } from "@/components/ui/Icons";
 import { Logo } from "@/components/Logo";
-import { cars } from "@/lib/content/cars";
+import { getPublishedCars } from "@/lib/data/cars";
 
-export function Footer() {
+export async function Footer() {
   const year = new Date().getFullYear();
+  const cars = await getPublishedCars();
   return (
     <footer className="bg-navy-950 text-white">
       <div className="container-x grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">

@@ -14,13 +14,35 @@ export type Car = {
   whyPopular: string[];
   /** Tailwind gradient classes for the card artwork (used when there is no photo) */
   accent: string;
-  /** Photo path under /public, e.g. "/cars/genesis-g90.jpg". Landscape ~16:10 works best. */
+  /** Photo URL (Vercel Blob) or path under /public, e.g. "/cars/genesis-g90.jpg". Landscape ~16:10 works best. */
   image?: string;
   /** Attribution for the photo (required for CC-licensed images); shown as a caption on the car page. */
   imageCredit?: { author: string; license?: string; source: string };
+  /** Hidden cars are kept in the admin panel but not shown on the site. */
+  hidden?: boolean;
 };
 
-export const cars: Car[] = [
+/** Preset gradients for the card artwork when a car has no photo. */
+export const carAccents: { value: string; label: string }[] = [
+  { value: "from-zinc-600/80 to-neutral-800/80", label: "Графит" },
+  { value: "from-slate-700/80 to-slate-900/80", label: "Сланец" },
+  { value: "from-stone-600/80 to-stone-800/80", label: "Камень" },
+  { value: "from-neutral-700/80 to-black/80", label: "Чёрный" },
+  { value: "from-sky-800/80 to-slate-900/80", label: "Синий" },
+  { value: "from-blue-900/80 to-slate-900/80", label: "Тёмно-синий" },
+  { value: "from-indigo-900/80 to-slate-950/80", label: "Индиго" },
+  { value: "from-red-900/80 to-neutral-900/80", label: "Красный" },
+  { value: "from-rose-900/80 to-neutral-900/80", label: "Бордовый" },
+  { value: "from-emerald-900/80 to-neutral-900/80", label: "Зелёный" },
+  { value: "from-gray-700/80 to-gray-900/80", label: "Серый" },
+  { value: "from-amber-900/80 to-neutral-900/80", label: "Янтарный" },
+];
+
+/**
+ * Default catalogue. Used as the initial content until the admin panel saves its
+ * own list to storage (see `lib/data/cars.ts`).
+ */
+export const seedCars: Car[] = [
   {
     slug: "mercedes-benz-e-class",
     brand: "Mercedes-Benz",
@@ -274,10 +296,6 @@ export const cars: Car[] = [
     imageCredit: { author: "Encar", source: "https://www.encar.com" },
   },
 ];
-
-export function getCar(slug: string) {
-  return cars.find((c) => c.slug === slug);
-}
 
 export const formatUsd = (n: number) =>
   new Intl.NumberFormat("ru-RU", {

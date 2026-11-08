@@ -1,10 +1,11 @@
 import type { MetadataRoute } from "next";
 import { absoluteUrl, siteConfig } from "@/lib/site";
-import { cars } from "@/lib/content/cars";
+import { getPublishedCars } from "@/lib/data/cars";
 import { articles } from "@/lib/content/articles";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
+  const cars = await getPublishedCars();
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: absoluteUrl("/"), lastModified: now, changeFrequency: "weekly", priority: 1 },
